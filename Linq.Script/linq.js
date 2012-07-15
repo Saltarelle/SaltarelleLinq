@@ -176,7 +176,9 @@
 
     Enumerable.Utils = {}; // container
 
-    Enumerable.Utils.createLambda = Utils.createLambda;
+    Enumerable.Utils.createLambda = function (expression) {
+        return Utils.createLambda(expression);
+    };
 
     Enumerable.Utils.createEnumerable = function (getEnumerator) {
         return new Enumerable(getEnumerator);
@@ -537,7 +539,7 @@
             var enuerator;
 
             return new IEnumerator(
-                function () { enumerator = enumerableFactory().getEnumerator(); },
+                function () { enumerator = Enumerable.from(enumerableFactory()).getEnumerator(); },
                 function () {
                     return (enumerator.moveNext())
                         ? this.yieldReturn(enumerator.current())
