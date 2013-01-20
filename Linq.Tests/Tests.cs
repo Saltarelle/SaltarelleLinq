@@ -1,12 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Linq.Tests {
-	// System
+	[TestFixture]
+	public class ActionTests : TestBase {}
 
 	[TestFixture]
-	public class Tests : TestBase {}
+	public class AggregateTests : TestBase {}
+
+	[TestFixture]
+	public class ConvertTests : TestBase {}
+
+	[TestFixture]
+	public class ErrorHandlingTests : TestBase {}
+
+	[TestFixture]
+	public class ForDebugTests : TestBase {}
+
+	[TestFixture]
+	public class FunctionalTests : TestBase {}
+
+	[TestFixture]
+	public class GeneratorTests : TestBase {}
+
+	[TestFixture]
+	public class GroupingTests : TestBase {}
+
+	[TestFixture]
+	public class JoinTests : TestBase {}
+
+	[TestFixture]
+	public class MiscTests : TestBase {}
+
+	[TestFixture]
+	public class OrderingTests : TestBase {}
+
+	[TestFixture]
+	public class PagingTests : TestBase {}
+
+	[TestFixture]
+	public class ProjectionFilteringTests : TestBase {}
+
+	[TestFixture]
+	public class SetMethodTests : TestBase {}
 }

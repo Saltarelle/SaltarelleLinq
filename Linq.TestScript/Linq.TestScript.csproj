@@ -39,9 +39,22 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ErrorHandlingTests.cs" />
+    <Compile Include="FunctionalTests.cs" />
+    <Compile Include="ActionTests.cs" />
+    <Compile Include="ConvertTests.cs" />
+    <Compile Include="PagingTests.cs" />
+    <Compile Include="AggregateTests.cs" />
+    <Compile Include="GroupingTests.cs" />
+    <Compile Include="OrderingTests.cs" />
+    <Compile Include="SetMethodTests.cs" />
+    <Compile Include="ProjectionFilteringTests.cs" />
+    <Compile Include="JoinTests.cs" />
+    <Compile Include="GeneratorTests.cs" />
+    <Compile Include="MiscTests.cs" />
     <Compile Include="TestEnumerable.cs" />
     <Compile Include="TestEnumerator.cs" />
-    <Compile Include="Tests.cs" />
+    <Compile Include="ForDebugTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
