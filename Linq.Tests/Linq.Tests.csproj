@@ -10,8 +10,8 @@
     <ProjectGuid>{F8047019-A362-46C8-B317-D4278EFCC680}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LinqJSTests</RootNamespace>
-    <AssemblyName>LinqJSTests</AssemblyName>
+    <RootNamespace>Linq.Tests</RootNamespace>
+    <AssemblyName>Linq.Tests</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
