@@ -7,6 +7,6 @@ using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("LinqJS")]
+[assembly: AssemblyTitle("Linq")]
 [assembly: AssemblyDescription("Saltarelle interface to Linq.JS")]
 [assembly: ScriptAssembly("linq")]
