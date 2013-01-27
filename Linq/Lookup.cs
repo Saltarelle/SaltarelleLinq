@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 
 namespace System.Linq {
 	[Imported]
-	[IgnoreGenericArguments]
 	public class Lookup<TKey, TElement> : ILookup<TKey, TElement> {
 		internal Lookup() {}
 

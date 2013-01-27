@@ -3,18 +3,18 @@
 
     Enumerable.from = (function(old) {
         return function(obj) {
-            var ienum = Type.safeCast(obj, ss.IEnumerable);
+            var ienum = ss.safeCast(obj, ss.IEnumerable);
             if (ienum) {
                 var enumerator;
                 return new Enumerable(function () {
                     return new IEnumerator(
-                        function () { enumerator = ienum.getEnumerator(); },
+                        function () { enumerator = ss.getEnumerator(ienum); },
                         function () {
                             var ok = enumerator.moveNext();
                             return ok ? this.yieldReturn(enumerator.get_current()) : false;
                         },
                         function () {
-                            var disposable = Type.safeCast(enumerator, ss.IDisposable);
+                            var disposable = ss.safeCast(enumerator, ss.IDisposable);
                             if (disposable) {
                                 disposable.dispose();
                             }
@@ -43,10 +43,10 @@
             var enumerator;
 
             return new IEnumerator(
-                function () { enumerator = source.getEnumerator(); },
+                function () { enumerator = ss.getEnumerator(source); },
                 function () {
                     while (enumerator.moveNext()) {
-                        var v = Type.safeCast(enumerator.current(), type);
+                        var v = ss.safeCast(enumerator.current(), type);
                         if (ss.isValue(v)) {
                             return this.yieldReturn(v);
                         }
@@ -65,17 +65,17 @@
         };
     })(ArrayEnumerable.prototype.getEnumerator);
 
-    Type.registerClass(global, 'Enumerable', Enumerable, null, ss.IEnumerable);
+    ss.registerClass(global, 'Enumerable', Enumerable, null, ss.IEnumerable);
 
     Grouping.prototype.get_current = function () { return this.current(); };
-    Type.registerClass(null, '$Grouping', Grouping, null, ss.IEnumerable);
+    ss.registerClass(null, '$Grouping', Grouping, null, ss.IEnumerable);
 
     IEnumerator.prototype.get_current = function () { return this.current(); };
     IEnumerator.prototype.reset = function () { throw new Error('Reset is not supported'); };
-    Type.registerClass(null, '$IEnumerator', IEnumerator, null, ss.IDisposable);
+    ss.registerClass(null, '$IEnumerator', IEnumerator, null, ss.IDisposable);
 
     Lookup.prototype.getEnumerator = function () { return this.toEnumerable().getEnumerator(); };
-    Type.registerClass(null, '$Lookup', Lookup, null, ss.IEnumerable);
+    ss.registerClass(null, '$Lookup', Lookup, null, ss.IEnumerable);
 
     Dictionary.prototype.get_item = function (key) { if (!this.contains(key)) throw new Error('Key ' + key + ' does not exist.'); return this.get(key); };
     Dictionary.prototype.set_item = (function (add) { return function (key, value) { add.call(this, key, value); }; })(Dictionary.prototype.add);
@@ -87,4 +87,4 @@
     Dictionary.prototype.get_values = function () { return this.toEnumerable().select(function (x) { return x.value; }); };
     Dictionary.prototype.getEnumerator = function () { return this.toEnumerable().getEnumerator(); };
     Dictionary.prototype.tryGetValue = function (key, value) { if (this.containsKey(key)) { value.$ = this.get(key); return true; } else { value.$ = this.defaultValue; return false; } };
-    Type.registerClass(null, '$LinqJSDictionary', Dictionary, null, ss.IEnumerable);
+    ss.registerClass(null, '$LinqJSDictionary', Dictionary, null, ss.IEnumerable);

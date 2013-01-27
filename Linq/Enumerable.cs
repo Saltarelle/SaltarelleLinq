@@ -12,27 +12,21 @@ namespace System.Linq {
 	public static class Enumerable {
 		#region Generators
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> Choice<TResult>(params TResult[] arguments) { return null; }
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> Cycle<TResult>(params TResult[] arguments) { return null; }
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> Empty<TResult>() { return null; }
 
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> From<TResult>(IEnumerable<TResult> source) { return null; }
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<string> From(string source) { return null; }
 
 		
 		public static LinqJSEnumerable<object> From(object arrayLikeObject) { return null; }
 
 		
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> Make<TResult>(TResult element) { return null; }
 
 
@@ -58,21 +52,16 @@ namespace System.Linq {
 		public static LinqJSEnumerable<int> RangeTo(int start, int count, int step) { return null; }
 
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> Repeat<TResult>(TResult element) { return null; }
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> Repeat<TResult>(TResult element, int count) { return null; }
 
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> RepeatWithFinalize<TResult>(Func<TResult> initializer, Action<TResult> finalizer) { return null; }
 
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> Generate<TResult>(Func<TResult> func) { return null; }
 
-		[IgnoreGenericArguments]
 		public static LinqJSEnumerable<TResult> Generate<TResult>(Func<TResult> func, int count) { return null; }
 
 
@@ -151,7 +140,7 @@ namespace System.Linq {
 		public static LinqJSEnumerable<TResult> SelectMany<TSource, TCollection, TResult>(this IEnumerable<TSource> source, Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector) { return null; }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).select(function(x) {{ return {$System.Type}.cast(x, {TResult}); }})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).select(function(x) {{ return {$System.Script}.cast(x, {TResult}); }})")]
 		public static LinqJSEnumerable<TResult> Cast<TResult>(this IEnumerable source) { return null; }
 
 
@@ -217,7 +206,7 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).contains({value}, {compareSelector})")]
 		public static bool Contains<TSource, TValue>(this IEnumerable<TSource> source, TValue value, Func<TSource, TValue> compareSelector) { return false; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).defaultIfEmpty({TSource}.getDefaultValue())")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).defaultIfEmpty(ss.getDefaultValue({TSource}))")]
 		public static LinqJSEnumerable<TSource> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source) { return null; }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).defaultIfEmpty({defaultValue})")]
@@ -546,7 +535,7 @@ namespace System.Linq {
 		public static TSource ElementAt<TSource>(this IEnumerable<TSource> source, int index) { return default(TSource); }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).elementAtOrDefault({index}, {TSource}.getDefaultValue())")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).elementAtOrDefault({index}, ss.getDefaultValue({TSource}))")]
 		public static TSource ElementAtOrDefault<TSource>(this IEnumerable<TSource> source, int index) { return default(TSource); }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).elementAtOrDefault({index}, {defaultValue})")]
@@ -560,13 +549,13 @@ namespace System.Linq {
 		public static TSource First<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault({TSource}.getDefaultValue())")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault(ss.getDefaultValue({TSource}))")]
 		public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source) { return default(TSource); }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault({defaultValue})")]
 		public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, TSource defaultValue) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault({TSource}.getDefaultValue(), {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault(ss.getDefaultValue({TSource}), {predicate})")]
 		public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault({defaultValue}, {predicate})")]
@@ -580,13 +569,13 @@ namespace System.Linq {
 		public static TSource Last<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault({TSource}.getDefaultValue())")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault(ss.getDefaultValue({TSource}))")]
 		public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source) { return default(TSource); }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault({defaultValue})")]
 		public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source, TSource defaultValue) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault({TSource}.getDefaultValue(), {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault(ss.getDefaultValue({TSource}), {predicate})")]
 		public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault({defaultValue}, {predicate})")]
@@ -600,13 +589,13 @@ namespace System.Linq {
 		public static TSource Single<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault({TSource}.getDefaultValue())")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault(ss.getDefaultValue({TSource}))")]
 		public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source) { return default(TSource); }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault({defaultValue})")]
 		public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source, TSource defaultValue) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault({TSource}.getDefaultValue(), {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault(ss.getDefaultValue({TSource}), {predicate})")]
 		public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault({defaultValue}, {predicate})")]
@@ -679,13 +668,13 @@ namespace System.Linq {
 		public static JsDictionary<TKey, TValue> ToObject<TSource, TKey, TValue>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) { return null; }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary({TSource}.getDefaultValue(), {keySelector})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary(ss.getDefaultValue({TSource}), {keySelector})")]
 		public static IDictionary<TKey, TSource> ToDictionary<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary({TValue}.getDefaultValue(), {keySelector}, {valueSelector})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary(ss.getDefaultValue({TValue}), {keySelector}, {valueSelector})")]
 		public static IDictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary({TValue}.getDefaultValue(), {keySelector}, {valueSelector}, {compareSelector})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary(ss.getDefaultValue({TValue}), {keySelector}, {valueSelector}, {compareSelector})")]
 		public static IDictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue, TCompare>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector, Func<TKey, TCompare> compareSelector) { return null; }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).toJoinedString()")]

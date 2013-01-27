@@ -169,7 +169,7 @@
     </Content>
     <Content Include="..\Linq.Script\bin\linq.js">
       <Link>linq.js</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\packages\Saltarelle.QUnit.*\qunit-*.css">
       <Link>qunit.css</Link>
