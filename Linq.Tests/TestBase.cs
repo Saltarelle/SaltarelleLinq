@@ -61,7 +61,7 @@ namespace Linq.Tests {
 					DateTime startTime = DateTime.Now;
 					while (!result.getElementById("qunit-testresult").getTextContent().Contains("completed")) {
 						System.Threading.Thread.Sleep(100);
-						if ((DateTime.Now - startTime).Seconds > 15)
+						if ((DateTime.Now - startTime).Seconds > 3600)
 							throw new Exception("Tests timed out");
 					}
 					return result;
@@ -75,7 +75,7 @@ namespace Linq.Tests {
 			}
 		}
 
-		[Test, Ignore("Not a real test")]
+		//[Test, Ignore("Not a real test")]
 		public void WriteThePage() {
 			GeneratePage(true);
 		}
