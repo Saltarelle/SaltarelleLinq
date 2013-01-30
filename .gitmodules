@@ -1,0 +1,3 @@
+[submodule "Upstream"]
+	path = Upstream
+	url = https://git01.codeplex.com/linqjs
