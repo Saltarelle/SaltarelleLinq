@@ -51,15 +51,69 @@ namespace Linq.TestScript {
 			Assert.AreEqual(lu["xls"].ToArray(), new[] { "temp.xls" });
 			Assert.AreEqual(lu["pdf"].ToArray(), new[] { "temp.pdf", "temp2.pdf" });
 			Assert.AreEqual(lu["jpg"].ToArray(), new[] { "temp.jpg" });
+
+			var lu2 = new[] { new { s = "1", i = 100 }, new { s = "3", i = 101 }, new { s = "1", i = 102 }, new { s = "2", i = 103 }, new { s = "3", i = 104 } }.ToLookup(x => new C(x.s));
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "1", "3", "2" });
+			Assert.AreEqual(lu2[new C("1")].Select(x => x.i).ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].Select(x => x.i).ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].Select(x => x.i).ToArray(), new[] { 101, 104 });
 		}
 
 		[Test]
-		public void ToLookupWithOnlyKeySelectorWorksForLinqJSEnumerable() {
-			var lu = new[] { "temp.xls", "temp.pdf", "temp.jpg", "temp2.pdf" }.Select(x => x).ToLookup(s => s.Match(new Regex("\\.(.+$)"))[1]);
+		public void ToLookupWithOnlyKeySelectorWorksForSaltarelleEnumerable() {
+			var lu = new[] { "temp.xls", "temp.pdf", "temp.jpg", "temp2.pdf" }.Wrap().ToLookup(s => s.Match(new Regex("\\.(.+$)"))[1]);
 			Assert.AreEqual(lu.Count, 3);
 			Assert.AreEqual(lu["xls"].ToArray(), new[] { "temp.xls" });
 			Assert.AreEqual(lu["pdf"].ToArray(), new[] { "temp.pdf", "temp2.pdf" });
 			Assert.AreEqual(lu["jpg"].ToArray(), new[] { "temp.jpg" });
+
+			var lu2 = new[] { new { s = "1", i = 100 }, new { s = "3", i = 101 }, new { s = "1", i = 102 }, new { s = "2", i = 103 }, new { s = "3", i = 104 } }.Wrap().ToLookup(x => new C(x.s));
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "1", "3", "2" });
+			Assert.AreEqual(lu2[new C("1")].Select(x => x.i).ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].Select(x => x.i).ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].Select(x => x.i).ToArray(), new[] { 101, 104 });
+		}
+
+		[Test]
+		public void ToLookupWithOnlyKeySelectorWorksForLinqJSEnumerable() {
+			var lu = Enumerable.From(new[] { "temp.xls", "temp.pdf", "temp.jpg", "temp2.pdf" }).ToLookup(s => s.Match(new Regex("\\.(.+$)"))[1]);
+			Assert.AreEqual(lu.Count, 3);
+			Assert.AreEqual(lu["xls"].ToArray(), new[] { "temp.xls" });
+			Assert.AreEqual(lu["pdf"].ToArray(), new[] { "temp.pdf", "temp2.pdf" });
+			Assert.AreEqual(lu["jpg"].ToArray(), new[] { "temp.jpg" });
+
+			var lu2 = Enumerable.From(new[] { new { s = "1", i = 100 }, new { s = "3", i = 101 }, new { s = "1", i = 102 }, new { s = "2", i = 103 }, new { s = "3", i = 104 } }).ToLookup(x => new C(x.s));
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "1", "3", "2" });
+			Assert.AreEqual(lu2[new C("1")].Select(x => x.i).ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].Select(x => x.i).ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].Select(x => x.i).ToArray(), new[] { 101, 104 });
+		}
+
+		[Test]
+		public void ToLookupWithKeySelectorAndComparerWorksForArray() {
+			var lu2 = new[] { new { s = "11", i = 100 }, new { s = "31", i = 101 }, new { s = "12", i = 102 }, new { s = "22", i = 103 }, new { s = "32", i = 104 } }.ToLookup(x => new C(x.s), new FirstLetterComparer());
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "11", "31", "22" });
+			Assert.AreEqual(lu2[new C("1")].Select(x => x.i).ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].Select(x => x.i).ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].Select(x => x.i).ToArray(), new[] { 101, 104 });
+		}
+
+		[Test]
+		public void ToLookupWithKeySelectorAndComparerWorksForSaltarelleEnumerable() {
+			var lu2 = new[] { new { s = "11", i = 100 }, new { s = "31", i = 101 }, new { s = "12", i = 102 }, new { s = "22", i = 103 }, new { s = "32", i = 104 } }.Wrap().ToLookup(x => new C(x.s), new FirstLetterComparer());
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "11", "31", "22" });
+			Assert.AreEqual(lu2[new C("1")].Select(x => x.i).ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].Select(x => x.i).ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].Select(x => x.i).ToArray(), new[] { 101, 104 });
+		}
+
+		[Test]
+		public void ToLookupWithKeySelectorAndComparerWorksForLinqJSEnumerable() {
+			var lu2 = Enumerable.From(new[] { new { s = "11", i = 100 }, new { s = "31", i = 101 }, new { s = "12", i = 102 }, new { s = "22", i = 103 }, new { s = "32", i = 104 } }).ToLookup(x => new C(x.s), new FirstLetterComparer());
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "11", "31", "22" });
+			Assert.AreEqual(lu2[new C("1")].Select(x => x.i).ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].Select(x => x.i).ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].Select(x => x.i).ToArray(), new[] { 101, 104 });
 		}
 
 		[Test]
@@ -69,33 +123,69 @@ namespace Linq.TestScript {
 			Assert.AreEqual(lu["xls"].ToArray(), new[] { "temp1" });
 			Assert.AreEqual(lu["pdf"].ToArray(), new[] { "temp2", "temp4" });
 			Assert.AreEqual(lu["jpg"].ToArray(), new[] { "temp3" });
+
+			var lu2 = new[] { new { s = "1", i = 100 }, new { s = "3", i = 101 }, new { s = "1", i = 102 }, new { s = "2", i = 103 }, new { s = "3", i = 104 } }.ToLookup(x => new C(x.s), x => x.i);
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "1", "3", "2" });
+			Assert.AreEqual(lu2[new C("1")].ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].ToArray(), new[] { 101, 104 });
 		}
 
 		[Test]
-		public void ToLookupWithKeyAndValueSelectorsWorksForLinqJSEnumerable() {
-			var lu = new[] { "temp1.xls", "temp2.pdf", "temp3.jpg", "temp4.pdf" }.Select(x => x).ToLookup(s => s.Match(new Regex("\\.(.+$)"))[1], s => s.Match(new Regex("^(.+)\\."))[1]);
+		public void ToLookupWithKeyAndValueSelectorsWorksForSaltarelleEnumerable() {
+			var lu = new[] { "temp1.xls", "temp2.pdf", "temp3.jpg", "temp4.pdf" }.Wrap().ToLookup(s => s.Match(new Regex("\\.(.+$)"))[1], s => s.Match(new Regex("^(.+)\\."))[1]);
 			Assert.AreEqual(lu.Count, 3);
 			Assert.AreEqual(lu["xls"].ToArray(), new[] { "temp1" });
 			Assert.AreEqual(lu["pdf"].ToArray(), new[] { "temp2", "temp4" });
 			Assert.AreEqual(lu["jpg"].ToArray(), new[] { "temp3" });
+
+			var lu2 = new[] { new { s = "1", i = 100 }, new { s = "3", i = 101 }, new { s = "1", i = 102 }, new { s = "2", i = 103 }, new { s = "3", i = 104 } }.Wrap().ToLookup(x => new C(x.s), x => x.i);
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "1", "3", "2" });
+			Assert.AreEqual(lu2[new C("1")].ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].ToArray(), new[] { 101, 104 });
 		}
 
 		[Test]
-		public void ToLookupWithKeyAndValueAndCompareSelectorsWorksForArray() {
-			var lu = new[] { "temp1.xls", "temp2.pdf", "temp3.jpg", "temp4.PDF" }.ToLookup(s => s.Match(new Regex("\\.(.+$)"))[1], s => s.Substr(1), s => s.ToLower());
+		public void ToLookupWithKeyAndValueSelectorsWorksForLinqJSEnumerable() {
+			var lu = Enumerable.From(new[] { "temp1.xls", "temp2.pdf", "temp3.jpg", "temp4.pdf" }).ToLookup(s => s.Match(new Regex("\\.(.+$)"))[1], s => s.Match(new Regex("^(.+)\\."))[1]);
 			Assert.AreEqual(lu.Count, 3);
-			Assert.AreEqual(lu["xls"].ToArray(), new[] { "emp1.xls" });
-			Assert.AreEqual(lu["pdf"].ToArray(), new[] { "emp2.pdf", "emp4.PDF" });
-			Assert.AreEqual(lu["jpg"].ToArray(), new[] { "emp3.jpg" });
+			Assert.AreEqual(lu["xls"].ToArray(), new[] { "temp1" });
+			Assert.AreEqual(lu["pdf"].ToArray(), new[] { "temp2", "temp4" });
+			Assert.AreEqual(lu["jpg"].ToArray(), new[] { "temp3" });
+
+			var lu2 = Enumerable.From(new[] { new { s = "1", i = 100 }, new { s = "3", i = 101 }, new { s = "1", i = 102 }, new { s = "2", i = 103 }, new { s = "3", i = 104 } }).ToLookup(x => new C(x.s), x => x.i);
+			Assert.AreEqual(lu2.Select(x => x.Key.S).ToArray(), new[] { "1", "3", "2" });
+			Assert.AreEqual(lu2[new C("1")].ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu2[new C("2")].ToArray(), new[] { 103 });
+			Assert.AreEqual(lu2[new C("3")].ToArray(), new[] { 101, 104 });
 		}
 
 		[Test]
-		public void ToLookupWithKeyAndValueAndCompareSelectorsWorksForLinqJSEnumerable() {
-			var lu = new[] { "temp1.xls", "temp2.pdf", "temp3.jpg", "temp4.PDF" }.Select(x => x).ToLookup(s => s.Match(new Regex("\\.(.+$)"))[1], s => s.Substr(1), s => s.ToLower());
-			Assert.AreEqual(lu.Count, 3);
-			Assert.AreEqual(lu["xls"].ToArray(), new[] { "emp1.xls" });
-			Assert.AreEqual(lu["pdf"].ToArray(), new[] { "emp2.pdf", "emp4.PDF" });
-			Assert.AreEqual(lu["jpg"].ToArray(), new[] { "emp3.jpg" });
+		public void ToLookupWithKeyAndValueSelectorsAndComparerWorksForArray() {
+			var lu = new[] { new { s = "11", i = 100 }, new { s = "31", i = 101 }, new { s = "12", i = 102 }, new { s = "22", i = 103 }, new { s = "32", i = 104 } }.ToLookup(x => new C(x.s), x => x.i, new FirstLetterComparer());
+			Assert.AreEqual(lu.Select(x => x.Key.S).ToArray(), new[] { "11", "31", "22" });
+			Assert.AreEqual(lu[new C("11")].ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu[new C("22")].ToArray(), new[] { 103 });
+			Assert.AreEqual(lu[new C("31")].ToArray(), new[] { 101, 104 });
+		}
+
+		[Test]
+		public void ToLookupWithKeyAndValueSelectorsAndComparerWorksForSaltarelleEnumerable() {
+			var lu = new[] { new { s = "11", i = 100 }, new { s = "31", i = 101 }, new { s = "12", i = 102 }, new { s = "22", i = 103 }, new { s = "32", i = 104 } }.Wrap().ToLookup(x => new C(x.s), x => x.i, new FirstLetterComparer());
+			Assert.AreEqual(lu.Select(x => x.Key.S).ToArray(), new[] { "11", "31", "22" });
+			Assert.AreEqual(lu[new C("12")].ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu[new C("22")].ToArray(), new[] { 103 });
+			Assert.AreEqual(lu[new C("31")].ToArray(), new[] { 101, 104 });
+		}
+
+		[Test]
+		public void ToLookupWithKeyAndValueSelectorsAndComparerWorksForLinqJSEnumerable() {
+			var lu = Enumerable.From(new[] { new { s = "11", i = 100 }, new { s = "31", i = 101 }, new { s = "12", i = 102 }, new { s = "22", i = 103 }, new { s = "32", i = 104 } }).ToLookup(x => new C(x.s), x => x.i, new FirstLetterComparer());
+			Assert.AreEqual(lu.Select(x => x.Key.S).ToArray(), new[] { "11", "31", "22" });
+			Assert.AreEqual(lu[new C("11")].ToArray(), new[] { 100, 102 });
+			Assert.AreEqual(lu[new C("22")].ToArray(), new[] { 103 });
+			Assert.AreEqual(lu[new C("31")].ToArray(), new[] { 101, 104 });
 		}
 
 
@@ -119,6 +209,33 @@ namespace Linq.TestScript {
 			Assert.AreEqual(d["id_2"], new { id = "id_2", value = 3 });
 			Assert.AreEqual(d["id_3"], new { id = "id_3", value = 4 });
 			Assert.AreEqual(d["id_4"], new { id = "id_4", value = 5 });
+
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).ToArray().ToDictionary(item => item.id);
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("0")].value, 1);
+			Assert.AreEqual(d2[new C("1")].value, 2);
+			Assert.AreEqual(d2[new C("2")].value, 3);
+			Assert.AreEqual(d2[new C("3")].value, 4);
+			Assert.AreEqual(d2[new C("4")].value, 5);
+		}
+
+		[Test]
+		public void ToDictionaryWithOnlyKeySelectorWorksForSaltarelleEnumerable() {
+			var d = Enumerable.Range(1, 5).Select((value, index) => new { id = "id_" + index, value }).Wrap().ToDictionary(item => item.id);
+			Assert.AreEqual(d.Count, 5);
+			Assert.AreEqual(d["id_0"], new { id = "id_0", value = 1 });
+			Assert.AreEqual(d["id_1"], new { id = "id_1", value = 2 });
+			Assert.AreEqual(d["id_2"], new { id = "id_2", value = 3 });
+			Assert.AreEqual(d["id_3"], new { id = "id_3", value = 4 });
+			Assert.AreEqual(d["id_4"], new { id = "id_4", value = 5 });
+
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), index, value }).Wrap().ToDictionary(item => item.id);
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("0")].value, 1);
+			Assert.AreEqual(d2[new C("1")].value, 2);
+			Assert.AreEqual(d2[new C("2")].value, 3);
+			Assert.AreEqual(d2[new C("3")].value, 4);
+			Assert.AreEqual(d2[new C("4")].value, 5);
 		}
 
 		[Test]
@@ -130,6 +247,47 @@ namespace Linq.TestScript {
 			Assert.AreEqual(d["id_2"], new { id = "id_2", value = 3 });
 			Assert.AreEqual(d["id_3"], new { id = "id_3", value = 4 });
 			Assert.AreEqual(d["id_4"], new { id = "id_4", value = 5 });
+
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), index, value }).ToDictionary(item => item.id);
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("0")].value, 1);
+			Assert.AreEqual(d2[new C("1")].value, 2);
+			Assert.AreEqual(d2[new C("2")].value, 3);
+			Assert.AreEqual(d2[new C("3")].value, 4);
+			Assert.AreEqual(d2[new C("4")].value, 5);
+		}
+
+		[Test]
+		public void ToDictionaryWithKeySelectorAndComparerWorksForArray() {
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).ToArray().ToDictionary(item => item.id, new FirstLetterComparer());
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("02")].value, 1);
+			Assert.AreEqual(d2[new C("12")].value, 2);
+			Assert.AreEqual(d2[new C("22")].value, 3);
+			Assert.AreEqual(d2[new C("32")].value, 4);
+			Assert.AreEqual(d2[new C("42")].value, 5);
+		}
+
+		[Test]
+		public void ToDictionaryWithKeySelectorAndComparerWorksForSaltarelleEnumerable() {
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).Wrap().ToDictionary(item => item.id, new FirstLetterComparer());
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("02")].value, 1);
+			Assert.AreEqual(d2[new C("12")].value, 2);
+			Assert.AreEqual(d2[new C("22")].value, 3);
+			Assert.AreEqual(d2[new C("32")].value, 4);
+			Assert.AreEqual(d2[new C("42")].value, 5);
+		}
+
+		[Test]
+		public void ToDictionaryWithKeySelectorAndComparerWorksForLinqJSEnumerable() {
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).ToDictionary(item => item.id, new FirstLetterComparer());
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("02")].value, 1);
+			Assert.AreEqual(d2[new C("12")].value, 2);
+			Assert.AreEqual(d2[new C("22")].value, 3);
+			Assert.AreEqual(d2[new C("32")].value, 4);
+			Assert.AreEqual(d2[new C("42")].value, 5);
 		}
 
 		[Test]
@@ -141,6 +299,33 @@ namespace Linq.TestScript {
 			Assert.AreEqual(d["id_2"], 3);
 			Assert.AreEqual(d["id_3"], 4);
 			Assert.AreEqual(d["id_4"], 5);
+
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).ToArray().ToDictionary(item => item.id, item => item.value);
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("0")], 1);
+			Assert.AreEqual(d2[new C("1")], 2);
+			Assert.AreEqual(d2[new C("2")], 3);
+			Assert.AreEqual(d2[new C("3")], 4);
+			Assert.AreEqual(d2[new C("4")], 5);
+		}
+
+		[Test]
+		public void ToDictionaryWithKeyAndValueSelectorsWorksForSaltarelleEnumerable() {
+			var d = Enumerable.Range(1, 5).Select((value, index) => new { id = "id_" + index, value }).Wrap().ToDictionary(item => item.id, item => item.value);
+			Assert.AreEqual(d.Count, 5);
+			Assert.AreEqual(d["id_0"], 1);
+			Assert.AreEqual(d["id_1"], 2);
+			Assert.AreEqual(d["id_2"], 3);
+			Assert.AreEqual(d["id_3"], 4);
+			Assert.AreEqual(d["id_4"], 5);
+
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).Wrap().ToDictionary(item => item.id, item => item.value);
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("0")], 1);
+			Assert.AreEqual(d2[new C("1")], 2);
+			Assert.AreEqual(d2[new C("2")], 3);
+			Assert.AreEqual(d2[new C("3")], 4);
+			Assert.AreEqual(d2[new C("4")], 5);
 		}
 
 		[Test]
@@ -152,20 +337,47 @@ namespace Linq.TestScript {
 			Assert.AreEqual(d["id_2"], 3);
 			Assert.AreEqual(d["id_3"], 4);
 			Assert.AreEqual(d["id_4"], 5);
+
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).ToDictionary(item => item.id, item => item.value);
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("0")], 1);
+			Assert.AreEqual(d2[new C("1")], 2);
+			Assert.AreEqual(d2[new C("2")], 3);
+			Assert.AreEqual(d2[new C("3")], 4);
+			Assert.AreEqual(d2[new C("4")], 5);
 		}
 
 		[Test]
-		public void ToDictionaryWithKeyAndValueAndCompareSelectorsWorksForArray() {
-			var items = Enumerable.Range(1, 5).Select((value, index) => new { id = "id_" + index, value }).ToArray();
-			var d = items.ToDictionary(item => item, item => item.value, item => item.id);
-			Assert.AreEqual(d.ToArray(), items.Select(x => new { key = x, x.value }).ToArray());
+		public void ToDictionaryWithKeyAndValueSelectorsAndComparerWorksForArray() {
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).ToArray().ToDictionary(item => item.id, item => item.value, new FirstLetterComparer());
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("02")], 1);
+			Assert.AreEqual(d2[new C("12")], 2);
+			Assert.AreEqual(d2[new C("22")], 3);
+			Assert.AreEqual(d2[new C("32")], 4);
+			Assert.AreEqual(d2[new C("42")], 5);
 		}
 
 		[Test]
-		public void ToDictionaryWithKeyAndValueAndCompareSelectorsWorksForLinqJSEnumerable() {
-			var items = Enumerable.Range(1, 5).Select((value, index) => new { id = "id_" + index, value });
-			var d = items.ToDictionary(item => item, item => item.value, item => item.id);
-			Assert.AreEqual(d.ToArray(), items.Select(x => new { key = x, x.value }).ToArray());
+		public void ToDictionaryWithKeyAndValueSelectorsAndComparerWorksForSaltarelleEnumerable() {
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).Wrap().ToDictionary(item => item.id, item => item.value, new FirstLetterComparer());
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("02")], 1);
+			Assert.AreEqual(d2[new C("12")], 2);
+			Assert.AreEqual(d2[new C("22")], 3);
+			Assert.AreEqual(d2[new C("32")], 4);
+			Assert.AreEqual(d2[new C("42")], 5);
+		}
+
+		[Test]
+		public void ToDictionaryWithKeyAndValueSelectorsAndComparerWorksForLinqJSEnumerable() {
+			var d2 = Enumerable.Range(1, 5).Select((value, index) => new { id = new C(index.ToString()), value }).ToDictionary(item => item.id, item => item.value, new FirstLetterComparer());
+			Assert.AreEqual(d2.Count, 5);
+			Assert.AreEqual(d2[new C("02")], 1);
+			Assert.AreEqual(d2[new C("12")], 2);
+			Assert.AreEqual(d2[new C("22")], 3);
+			Assert.AreEqual(d2[new C("32")], 4);
+			Assert.AreEqual(d2[new C("42")], 5);
 		}
 
 

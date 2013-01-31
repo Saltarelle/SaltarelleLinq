@@ -116,11 +116,6 @@ namespace Linq.TestScript {
 		}
 
 		[Test]
-		public void ScanWithSeedAndResultSelectorWorksForSaltarelleEnumerable() {
-			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.Scan("", (a, b) => a + " " + b, s => s.Substr(1)).ToArray(), new[] { "", "1", "1 2", "1 2 3", "1 2 3 4", "1 2 3 4 5" });
-		}
-
-		[Test]
 		public void ScanWorksForLinqJSEnumerable() {
 			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.Select(x => x).Scan((a, b) => a + b).ToArray(), new[] { 1, 3, 6, 10, 15 });
 		}
@@ -128,11 +123,6 @@ namespace Linq.TestScript {
 		[Test]
 		public void ScanWithSeedWorksForLinqJSEnumerable() {
 			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.Select(x => x).Scan("", (a, b) => a + " " + b).ToArray(), new[] { "", " 1", " 1 2", " 1 2 3", " 1 2 3 4", " 1 2 3 4 5" });
-		}
-
-		[Test]
-		public void ScanWithSeedAndResultSelectorWorksForLinqJSEnumerable() {
-			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.Select(x => x).Scan("", (a, b) => a + " " + b, s => s.Substr(1)).ToArray(), new[] { "", "1", "1 2", "1 2 3", "1 2 3 4", "1 2 3 4 5" });
 		}
 
 

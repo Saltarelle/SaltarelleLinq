@@ -24,4 +24,25 @@ namespace Linq.TestScript {
 			return null;
 		}
 	}
+
+	public class EnumerableWrapper<T> : IEnumerable<T> {
+		private readonly IEnumerable<T> _source;
+		public EnumerableWrapper(IEnumerable<T> source) {
+			_source = source;
+		}
+
+		public IEnumerator<T> GetEnumerator() {
+			return _source.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator() {
+			return null;
+		}
+	}
+
+	public static class ExtensionMethods {
+		public static IEnumerable<T> Wrap<T>(this IEnumerable<T> source) {
+			return new EnumerableWrapper<T>(source);
+		}
+	}
 }

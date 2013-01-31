@@ -354,22 +354,98 @@ namespace Linq.TestScript {
 		[Test]
 		public void IndexOfWorksForArray() {
 			Assert.AreEqual(((IEnumerable<int>)new[] { 1, 2, 3, 4, 3, 2, 1 }).IndexOf(3), 2);
+			Assert.AreEqual(((IEnumerable<C>)new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }).IndexOf(new C("3")), 2);
+		}
+
+		[Test]
+		public void IndexOfWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 3, 2, 1 }.Wrap().IndexOf(3), 2);
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }.Wrap().IndexOf(new C("3")), 2);
 		}
 
 		[Test]
 		public void IndexOfWorksForLinqJSEnumerable() {
-			Assert.AreEqual(new[] { 1, 2, 3, 4, 3, 2, 1 }.Select(x => x).IndexOf(3), 2);
+			Assert.AreEqual(Enumerable.From(new[] { 1, 2, 3, 4, 3, 2, 1 }).IndexOf(3), 2);
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }).IndexOf(new C("3")), 2);
+		}
+
+		[Test]
+		public void IndexOfWithPredicateWorksForArray() {
+			Assert.AreEqual(((IEnumerable<int>)new[] { 1, 2, 3, 4, 3, 2, 1 }).IndexOf(x => x == 3), 2);
+		}
+
+		[Test]
+		public void IndexOfWithPredicateWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 3, 2, 1 }.Wrap().IndexOf(x => x == 3), 2);
+		}
+
+		[Test]
+		public void IndexOfWithPredicateWorksForLinqJSEnumerable() {
+			Assert.AreEqual(Enumerable.From(new[] { 1, 2, 3, 4, 3, 2, 1 }).IndexOf(x => x == 3), 2);
+		}
+
+		[Test]
+		public void IndexOfWithComparerWorksForArray() {
+			Assert.AreEqual(((IEnumerable<C>)new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }).IndexOf(new C("3X"), new FirstLetterComparer()), 2);
+		}
+
+		[Test]
+		public void IndexOfWithComparerWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }.Wrap().IndexOf(new C("3X"), new FirstLetterComparer()), 2);
+		}
+
+		[Test]
+		public void IndexOfWithComparerWorksForLinqJSEnumerable() {
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }).IndexOf(new C("3X"), new FirstLetterComparer()), 2);
 		}
 
 
 		[Test]
 		public void LastIndexOfWorksForArray() {
 			Assert.AreEqual(((IEnumerable<int>)new[] { 1, 2, 3, 4, 3, 2, 1 }).LastIndexOf(3), 4);
+			Assert.AreEqual(((IEnumerable<C>)new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }).LastIndexOf(new C("3")), 4);
+		}
+
+		[Test]
+		public void LastIndexOfWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 3, 2, 1 }.Wrap().LastIndexOf(3), 4);
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }.Wrap().LastIndexOf(new C("3")), 4);
 		}
 
 		[Test]
 		public void LastIndexOfWorksForLinqJSEnumerable() {
-			Assert.AreEqual(new[] { 1, 2, 3, 4, 3, 2, 1 }.Select(x => x).LastIndexOf(3), 4);
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 3, 2, 1 }.Wrap().LastIndexOf(3), 4);
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }).LastIndexOf(new C("3")), 4);
+		}
+
+		[Test]
+		public void LastIndexOfWithPredicateWorksForArray() {
+			Assert.AreEqual(((IEnumerable<int>)new[] { 1, 2, 3, 4, 3, 2, 1 }).LastIndexOf(x => x == 3), 4);
+		}
+
+		[Test]
+		public void LastIndexOfWithPredicateWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 3, 2, 1 }.Wrap().LastIndexOf(x => x == 3), 4);
+		}
+
+		[Test]
+		public void LastIndexOfWithPredicateWorksForLinqJSEnumerable() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 3, 2, 1 }.Wrap().LastIndexOf(x => x == 3), 4);
+		}
+
+		[Test]
+		public void LastIndexOfWithComparerWorksForArray() {
+			Assert.AreEqual(((IEnumerable<C>)new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }).LastIndexOf(new C("3X"), new FirstLetterComparer()), 4);
+		}
+
+		[Test]
+		public void LastIndexOfWithComparerWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }.Wrap().LastIndexOf(new C("3X"), new FirstLetterComparer()), 4);
+		}
+
+		[Test]
+		public void LastIndexOfWithComparerWorksForLinqJSEnumerable() {
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("3"), new C("2"), new C("1") }).LastIndexOf(new C("3X"), new FirstLetterComparer()), 4);
 		}
 	}
 }

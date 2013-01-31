@@ -116,9 +116,6 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).scan({seed}, {func})")]
 		public static LinqJSEnumerable<TAccumulate> Scan<TSource, TAccumulate>(this IEnumerable<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).scan({seed}, {func}, {resultSelector})")]
-		public static LinqJSEnumerable<TResult> Scan<TSource, TAccumulate, TResult>(this IEnumerable<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func, Func<TAccumulate, TResult> resultSelector) { return null; }
-
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).select({selector})")]
 		public static LinqJSEnumerable<TResult> Select<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> selector) { return null; }
@@ -168,15 +165,15 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({outer}).join({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector})")]
 		public static LinqJSEnumerable<TResult> Join<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, TInner, TResult> resultSelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({outer}).join({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector}, {compareSelector})")]
-		public static LinqJSEnumerable<TResult> Join<TOuter, TInner, TKey, TCompare, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, TInner, TResult> resultSelector, Func<TKey, TCompare> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({outer}).join({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector}, {comparer})")]
+		public static LinqJSEnumerable<TResult> Join<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, TInner, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 
 		[InlineCode("{$System.Linq.Enumerable}.from({outer}).groupJoin({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector})")]
 		public static LinqJSEnumerable<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({outer}).groupJoin({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector}, {compareSelector})")]
-		public static LinqJSEnumerable<TResult> GroupJoin<TOuter, TInner, TKey, TCompare, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector, Func<TKey, TCompare> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({outer}).groupJoin({inner}, {outerKeySelector}, {innerKeySelector}, {resultSelector}, {comparer})")]
+		public static LinqJSEnumerable<TResult> GroupJoin<TOuter, TInner, TKey, TResult>(this IEnumerable<TOuter> outer, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 		#endregion
 
@@ -185,26 +182,32 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).all({predicate})")]
 		public static bool All<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return false; }
 
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).any()")]
 		public static bool Any<TSource>(this IEnumerable<TSource> source) { return false; }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).any({predicate})")]
 		public static bool Any<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return false; }
 
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).concat({other})")]
 		public static LinqJSEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other) { return null; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).insert({index}, {other})")]
 		public static LinqJSEnumerable<TSource> Insert<TSource>(this IEnumerable<TSource> source, int index, IEnumerable<TSource> other) { return null; }
 
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).alternate({value})")]
 		public static LinqJSEnumerable<TSource> Alternate<TSource>(this IEnumerable<TSource> source, TSource value) { return null; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).contains({value})")]
 		public static bool Contains<TSource>(this IEnumerable<TSource> source, TSource value) { return false; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).contains({value}, {compareSelector})")]
-		public static bool Contains<TSource, TValue>(this IEnumerable<TSource> source, TValue value, Func<TSource, TValue> compareSelector) { return false; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).contains({value}, {comparer})")]
+		public static bool Contains<TSource>(this IEnumerable<TSource> source, TSource value, IEqualityComparer<TSource> comparer) { return false; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).defaultIfEmpty(ss.getDefaultValue({TSource}))")]
 		public static LinqJSEnumerable<TSource> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source) { return null; }
@@ -212,29 +215,40 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).defaultIfEmpty({defaultValue})")]
 		public static LinqJSEnumerable<TSource> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source, TSource defaultValue) { return null; }
 
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).distinct()")]
 		public static LinqJSEnumerable<TSource> Distinct<TSource>(this IEnumerable<TSource> source) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).distinct({compareSelector})")]
-		public static LinqJSEnumerable<TSource> Distinct<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).distinct({comparer})")]
+		public static LinqJSEnumerable<TSource> Distinct<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer) { return null; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).except({other})")]
 		public static LinqJSEnumerable<TSource> Except<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).except({other}, {compareSelector})")]
-		public static LinqJSEnumerable<TSource> Except<TSource, TKey>(this IEnumerable<TSource> source, IEnumerable<TSource> other, Func<TSource, TKey> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).except({other}, {comparer})")]
+		public static LinqJSEnumerable<TSource> Except<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other, IEqualityComparer<TSource> comparer) { return null; }
+
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).intersect({other})")]
+		public static LinqJSEnumerable<TSource> Intersect<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other) { return null; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).intersect({other}, {comparer})")]
+		public static LinqJSEnumerable<TSource> Intersect<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other, IEqualityComparer<TSource> comparer) { return null; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).sequenceEqual({other})")]
 		public static bool SequenceEqual<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other) { return false; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).sequenceEqual({other}, {compareSelector})")]
-		public static bool SequenceEqual<TSource, TKey>(this IEnumerable<TSource> source, IEnumerable<TSource> other, Func<TSource, TKey> compareSelector) { return false; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).sequenceEqual({other}, {comparer})")]
+		public static bool SequenceEqual<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other, IEqualityComparer<TSource> comparer) { return false; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).union({other})")]
 		public static LinqJSEnumerable<TSource> Union<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).union({other}, {compareSelector})")]
-		public static LinqJSEnumerable<TSource> Union<TSource, TKey>(this IEnumerable<TSource> source, IEnumerable<TSource> other, Func<TSource, TKey> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).union({other}, {comparer})")]
+		public static LinqJSEnumerable<TSource> Union<TSource>(this IEnumerable<TSource> source, IEnumerable<TSource> other, IEqualityComparer<TSource> comparer) { return null; }
 
 		#endregion
 
@@ -265,27 +279,51 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector})")]
 		public static LinqJSEnumerable<Grouping<TKey, TSource>> GroupBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) { return null; }
 
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, null, null, {comparer})")]
+		public static LinqJSEnumerable<Grouping<TKey, TSource>> GroupBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, {elementSelector})")]
 		public static LinqJSEnumerable<Grouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, {elementSelector}, {resultSelector})")]
-		public static LinqJSEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TSource, IEnumerable<TElement>, TResult> resultSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, null, {resultSelector})")]
+		public static LinqJSEnumerable<TResult> GroupBy<TSource, TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, {elementSelector}, {resultSelector}, {compareSelector})")]
-		public static LinqJSEnumerable<TResult> GroupBy<TSource, TKey, TElement, TCompare, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TSource, IEnumerable<TElement>, TResult> resultSelector, Func<TKey, TCompare> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, {elementSelector}, null, {comparer})")]
+		public static LinqJSEnumerable<Grouping<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, {elementSelector}, {resultSelector})")]
+		public static LinqJSEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) { return null; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, null, {resultSelector}, {comparer})")]
+		public static LinqJSEnumerable<TResult> GroupBy<TSource, TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).groupBy({keySelector}, {elementSelector}, {resultSelector}, {comparer})")]
+		public static LinqJSEnumerable<TResult> GroupBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector})")]
 		public static LinqJSEnumerable<Grouping<TKey, TSource>> PartitionBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) { return null; }
 
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, null, null, {comparer})")]
+		public static LinqJSEnumerable<Grouping<TKey, TSource>> PartitionBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, {elementSelector})")]
 		public static LinqJSEnumerable<Grouping<TKey, TElement>> PartitionBy<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, {elementSelector}, {resultSelector})")]
-		public static LinqJSEnumerable<TResult> PartitionBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TSource, IEnumerable<TElement>, TResult> resultSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, null, {resultSelector})")]
+		public static LinqJSEnumerable<TResult> PartitionBy<TSource, TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, {elementSelector}, {resultSelector}, {compareSelector})")]
-		public static LinqJSEnumerable<TResult> PartitionBy<TSource, TKey, TElement, TCompare, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TSource, IEnumerable<TElement>, TResult> resultSelector, Func<TKey, TCompare> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, {elementSelector}, null, {comparer})")]
+		public static LinqJSEnumerable<Grouping<TKey, TElement>> PartitionBy<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, {elementSelector}, {resultSelector})")]
+		public static LinqJSEnumerable<TResult> PartitionBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) { return null; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, null, {resultSelector}, {comparer})")]
+		public static LinqJSEnumerable<TResult> PartitionBy<TSource, TKey, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).partitionBy({keySelector}, {elementSelector}, {resultSelector}, {comparer})")]
+		public static LinqJSEnumerable<TResult> PartitionBy<TSource, TKey, TElement, TResult>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).buffer({count})")]
@@ -549,16 +587,16 @@ namespace System.Linq {
 		public static TSource First<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault(ss.getDefaultValue({TSource}))")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault(null, ss.getDefaultValue({TSource}))")]
 		public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault({defaultValue})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault(null, {defaultValue})")]
 		public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, TSource defaultValue) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault(ss.getDefaultValue({TSource}), {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault({predicate}, ss.getDefaultValue({TSource}))")]
 		public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault({defaultValue}, {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).firstOrDefault({predicate}, {defaultValue})")]
 		public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate, TSource defaultValue) { return default(TSource); }
 
 
@@ -569,16 +607,16 @@ namespace System.Linq {
 		public static TSource Last<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault(ss.getDefaultValue({TSource}))")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault(null, ss.getDefaultValue({TSource}))")]
 		public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault({defaultValue})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault(null, {defaultValue})")]
 		public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source, TSource defaultValue) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault(ss.getDefaultValue({TSource}), {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault({predicate}, ss.getDefaultValue({TSource}))")]
 		public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault({defaultValue}, {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastOrDefault({predicate}, {defaultValue})")]
 		public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate, TSource defaultValue) { return default(TSource); }
 
 
@@ -589,16 +627,16 @@ namespace System.Linq {
 		public static TSource Single<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault(ss.getDefaultValue({TSource}))")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault(null, ss.getDefaultValue({TSource}))")]
 		public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault({defaultValue})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault(null, {defaultValue})")]
 		public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source, TSource defaultValue) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault(ss.getDefaultValue({TSource}), {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault({predicate}, ss.getDefaultValue({TSource}))")]
 		public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return default(TSource); }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault({defaultValue}, {predicate})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).singleOrDefault({predicate}, {defaultValue})")]
 		public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate, TSource defaultValue) { return default(TSource); }
 
 
@@ -638,9 +676,21 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).indexOf({item})")]
 		public static int IndexOf<TSource>(this IEnumerable<TSource> source, TSource item) { return 0; }
 
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).indexOf({predicate})")]
+		public static int IndexOf<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return 0; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).indexOf({item}, {comparer})")]
+		public static int IndexOf<TSource>(this IEnumerable<TSource> source, TSource item, IEqualityComparer<TSource> comparer) { return 0; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastIndexOf({item})")]
 		public static int LastIndexOf<TSource>(this IEnumerable<TSource> source, TSource item) { return 0; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastIndexOf({predicate})")]
+		public static int LastIndexOf<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate) { return 0; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).lastIndexOf({item}, {comparer})")]
+		public static int LastIndexOf<TSource>(this IEnumerable<TSource> source, TSource item, IEqualityComparer<TSource> comparer) { return 0; }
 
 		#endregion
 
@@ -657,25 +707,32 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).toLookup({keySelector})")]
 		public static Lookup<TKey, TSource> ToLookup<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) { return null; }
 
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toLookup({keySelector}, null, {comparer})")]
+		public static Lookup<TKey, TSource> ToLookup<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).toLookup({keySelector}, {elementSelector})")]
 		public static Lookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).toLookup({keySelector}, {elementSelector}, {compareSelector})")]
-		public static Lookup<TKey, TElement> ToLookup<TSource, TKey, TElement, TCompare>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TSource, TCompare> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toLookup({keySelector}, {elementSelector}, {comparer})")]
+		public static Lookup<TKey, TElement> ToLookup<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).toObject({keySelector}, {valueSelector})")]
 		public static JsDictionary<TKey, TValue> ToObject<TSource, TKey, TValue>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) { return null; }
 
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary(ss.getDefaultValue({TSource}), {keySelector})")]
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary({keySelector}, null, {TKey}, {TSource})")]
 		public static IDictionary<TKey, TSource> ToDictionary<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary(ss.getDefaultValue({TValue}), {keySelector}, {valueSelector})")]
-		public static IDictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary({keySelector}, null, {TKey}, {TSource}, {comparer})")]
+		public static IDictionary<TKey, TSource> ToDictionary<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
 
-		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary(ss.getDefaultValue({TValue}), {keySelector}, {valueSelector}, {compareSelector})")]
-		public static IDictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue, TCompare>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector, Func<TKey, TCompare> compareSelector) { return null; }
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary({keySelector}, {elementSelector}, {TKey}, {TValue})")]
+		public static IDictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TValue> elementSelector) { return null; }
+
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).toDictionary({keySelector}, {elementSelector}, {TKey}, {TValue}, {comparer})")]
+		public static IDictionary<TKey, TValue> ToDictionary<TSource, TKey, TValue>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TValue> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).toJoinedString()")]
 		public static string ToJoinedString<TSource>(this IEnumerable<TSource> source) { return null; }

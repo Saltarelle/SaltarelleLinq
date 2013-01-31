@@ -28,6 +28,14 @@ namespace Linq.TestScript {
 		}
 
 		[Test]
+		public void CanForeachOverEnumerable() {
+			var result = "";
+			foreach (var i in Enumerable.From(new[] { 1, 3, 5 }))
+				result += i;
+			Assert.AreEqual(result, "135");
+		}
+
+		[Test]
 		public void CanSelectFromGrouping() {
 			var grp = new[] { 1, 2, 3, 4, 5 }.GroupBy(i => i % 2, i => i.ToString()).First();
 			Assert.AreEqual(grp.Select(x => x).ToArray(), new[] { "1", "3", "5" });

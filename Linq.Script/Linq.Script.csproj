@@ -21,7 +21,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="customizations.js" />
     <Content Include="linq.js" />
   </ItemGroup>
   <Target Name="Build">
@@ -36,6 +35,6 @@
   </Target>
   <Target Name="GetCopyToOutputDirectoryItems">
   </Target>
-	<Target Name="GetTargetPath" Returns="$(TargetPath)">
-	</Target>
+  <Target Name="GetTargetPath" Returns="$(TargetPath)">
+  </Target>
 </Project>

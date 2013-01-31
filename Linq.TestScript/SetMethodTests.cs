@@ -80,26 +80,30 @@ namespace Linq.TestScript {
 
 		[Test]
 		public void ContainsWorksForSaltarelleEnumerable() {
-			Assert.IsFalse(new TestEnumerable(1, 3).Contains(0));
-			Assert.IsTrue(new TestEnumerable(1, 3).Contains(1));
+			Assert.IsFalse(new[] { 1, 2, 3 }.Wrap().Contains(0));
+			Assert.IsTrue (new[] { 1, 2, 3 }.Wrap().Contains(1));
+			Assert.IsFalse(new[] { new C("1"), new C("2"), new C("3") }.Wrap().Contains(new C("0")));
+			Assert.IsTrue (new[] { new C("1"), new C("2"), new C("3") }.Wrap().Contains(new C("1")));
 		}
 
 		[Test]
 		public void ContainsWithCompareSelectorWorksForSaltarelleEnumerable() {
-			Assert.IsFalse(new TestEnumerable(10, 3).Contains(4, i => i % 5));
-			Assert.IsTrue(new TestEnumerable(10, 3).Contains(2, i => i % 5));
+			Assert.IsFalse(new[] { new C("11"), new C("21"), new C("31") }.Wrap().Contains(new C("0"), new FirstLetterComparer()));
+			Assert.IsTrue (new[] { new C("11"), new C("21"), new C("31") }.Wrap().Contains(new C("1"), new FirstLetterComparer()));
 		}
 
 		[Test]
 		public void ContainsWorksForLinqJSEnumerable() {
-			Assert.IsFalse(Enumerable.Range(1, 3).Contains(0));
-			Assert.IsTrue(Enumerable.Range(1, 3).Contains(1));
+			Assert.IsFalse(Enumerable.From(new[] { 1, 2, 3 }).Contains(0));
+			Assert.IsTrue (Enumerable.From(new[] { 1, 2, 3 }).Contains(1));
+			Assert.IsFalse(Enumerable.From(new[] { new C("1"), new C("2"), new C("3") }).Contains(new C("0")));
+			Assert.IsTrue (Enumerable.From(new[] { new C("1"), new C("2"), new C("3") }).Contains(new C("1")));
 		}
 
 		[Test]
-		public void ContainsWithCompareSelectorWorksForLinqJSEnumerable() {
-			Assert.IsFalse(Enumerable.Range(10, 3).Contains(4, i => i % 5));
-			Assert.IsTrue(Enumerable.Range(10, 3).Contains(2, i => i % 5));
+		public void ContainsWithComparerWorksForLinqJSEnumerable() {
+			Assert.IsFalse(Enumerable.From(new[] { new C("11"), new C("21"), new C("31") }).Contains(new C("0"), new FirstLetterComparer()));
+			Assert.IsTrue (Enumerable.From(new[] { new C("11"), new C("21"), new C("31") }).Contains(new C("1"), new FirstLetterComparer()));
 		}
 
 
@@ -131,88 +135,179 @@ namespace Linq.TestScript {
 		[Test]
 		public void DistinctWorksForArray() {
 			Assert.AreEqual(new[] { 1, 4, 1, 3, 7, 1, 4, 3 }.Distinct().ToArray(), new[] { 1, 4, 3, 7 });
+			Assert.AreEqual(new[] { new C("1"), new C("4"), new C("1"), new C("3"), new C("7"), new C("1"), new C("4"), new C("3") }.Distinct().Select(x => x.S).ToArray(), new[] { "1", "4", "3", "7" });
 		}
 
 		[Test]
-		public void DistinctWithCompareSelectorWorksForArray() {
-			Assert.AreEqual(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }.Distinct(i => i % 3).ToArray(), new[] { 1, 2, 3 });
+		public void DistinctWithComparerWorksForArray() {
+			Assert.AreEqual(new[] { new C("1"), new C("4"), new C("1"), new C("3"), new C("7"), new C("14"), new C("41"), new C("32") }.Distinct(new FirstLetterComparer()).Select(x => x.S).ToArray(), new[] { "1", "4", "3", "7" });
+		}
+
+		[Test]
+		public void DistinctWorksForSaltarelleEnumerableArray() {
+			Assert.AreEqual(new[] { 1, 4, 1, 3, 7, 1, 4, 3 }.Wrap().Distinct().ToArray(), new[] { 1, 4, 3, 7 });
+			Assert.AreEqual(new[] { new C("1"), new C("4"), new C("1"), new C("3"), new C("7"), new C("1"), new C("4"), new C("3") }.Wrap().Distinct().Select(x => x.S).ToArray(), new[] { "1", "4", "3", "7" });
+		}
+
+		[Test]
+		public void DistinctWithComparerWorksForSaltarelleEnumerableArray() {
+			Assert.AreEqual(new[] { new C("1"), new C("4"), new C("1"), new C("3"), new C("7"), new C("14"), new C("41"), new C("32") }.Wrap().Distinct(new FirstLetterComparer()).Select(x => x.S).ToArray(), new[] { "1", "4", "3", "7" });
 		}
 
 		[Test]
 		public void DistinctWorksForLinqJSEnumerable() {
-			Assert.AreEqual(new[] { 1, 4, 1, 3, 7, 1, 4, 3 }.Select(x => x).Distinct().ToArray(), new[] { 1, 4, 3, 7 });
+			Assert.AreEqual(Enumerable.From(new[] { 1, 4, 1, 3, 7, 1, 4, 3 }).Distinct().ToArray(), new[] { 1, 4, 3, 7 });
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("4"), new C("1"), new C("3"), new C("7"), new C("1"), new C("4"), new C("3") }).Distinct().Select(x => x.S).ToArray(), new[] { "1", "4", "3", "7" });
 		}
 
 		[Test]
 		public void DistinctWithCompareSelectorWorksForLinqJSEnumerable() {
-			Assert.AreEqual(Enumerable.Range(1, 10).Distinct(i => i % 3).ToArray(), new[] { 1, 2, 3 });
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("4"), new C("1"), new C("3"), new C("7"), new C("14"), new C("41"), new C("32") }).Distinct(new FirstLetterComparer()).Select(x => x.S).ToArray(), new[] { "1", "4", "3", "7" });
 		}
 
 
 		[Test]
 		public void ExceptWorksForArray() {
-			Assert.AreEqual(Enumerable.Range(1, 5).Except(Enumerable.Range(3, 7)).ToArray(), new[] { 1, 2 });
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.Except(new[] { 3, 4, 5, 6, 7 }).ToArray(), new[] { 1, 2 });
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Except(new[] { new C("3"), new C("4"), new C("5"), new C("6"), new C("7") }).ToArray(), new[] { new C("1"), new C("2") });
 		}
 
 		[Test]
-		public void ExceptWithCompareSelectorWorksForArray() {
-			Assert.AreEqual(new[] { new { i = 1 }, new { i = 2}, new { i = 3 }, new { i = 4 }, new { i = 5 } }.Except(new[] { new { i = 3 }, new { i = 4 }, new { i = 5 }, new { i = 6 }, new { i = 7 } }, x => x.i).ToArray(), new[] { new { i = 1 }, new { i = 2 } });
+		public void ExceptWithComparerWorksForArray() {
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Except(new[] { new C("31"), new C("41"), new C("51"), new C("61"), new C("71") }, new FirstLetterComparer()).ToArray(), new[] { new C("1"), new C("2") });
+		}
+
+		[Test]
+		public void ExceptWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.Wrap().Except(new[] { 3, 4, 5, 6, 7 }).ToArray(), new[] { 1, 2 });
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Wrap().Except(new[] { new C("3"), new C("4"), new C("5"), new C("6"), new C("7") }).ToArray(), new[] { new C("1"), new C("2") });
+		}
+
+		[Test]
+		public void ExceptWithComparerWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Wrap().Except(new[] { new C("31"), new C("41"), new C("51"), new C("61"), new C("71") }, new FirstLetterComparer()).ToArray(), new[] { new C("1"), new C("2") });
 		}
 
 		[Test]
 		public void ExceptWorksForLinqJSEnumerable() {
-			Assert.AreEqual(Enumerable.Range(1, 5).Except(Enumerable.Range(3, 7)).ToArray(), new[] { 1, 2 });
+			Assert.AreEqual(Enumerable.From(new[] { 1, 2, 3, 4, 5 }).Except(new[] { 3, 4, 5, 6, 7 }).ToArray(), new[] { 1, 2 });
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }).Except(new[] { new C("3"), new C("4"), new C("5"), new C("6"), new C("7") }).ToArray(), new[] { new C("1"), new C("2") });
 		}
 
 		[Test]
-		public void ExceptWithCompareSelectorWorksForLinqJSEnumerable() {
-			Assert.AreEqual(Enumerable.Range(1, 5).Select(i => new { i }).Except(Enumerable.Range(3, 7).Select(i => new { i }), x => x.i).ToArray(), new[] { new { i = 1 }, new { i = 2 } });
+		public void ExceptWithComparerWorksForLinqJSEnumerable() {
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }).Except(new[] { new C("31"), new C("41"), new C("51"), new C("61"), new C("71") }, new FirstLetterComparer()).ToArray(), new[] { new C("1"), new C("2") });
 		}
 
-		
+
+		[Test]
+		public void IntersectWorksForArray() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.Intersect(new[] { 3, 4, 5, 6, 7 }).ToArray(), new[] { 3, 4, 5 });
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Intersect(new[] { new C("3"), new C("4"), new C("5"), new C("6"), new C("7") }).ToArray(), new[] { new C("3"), new C("4"), new C("5") });
+		}
+
+		[Test]
+		public void IntersectWithComparerWorksForArray() {
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Intersect(new[] { new C("31"), new C("41"), new C("51"), new C("61"), new C("71") }, new FirstLetterComparer()).ToArray(), new[] { new C("3"), new C("4"), new C("5") });
+		}
+
+		[Test]
+		public void IntersectWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.Wrap().Intersect(new[] { 3, 4, 5, 6, 7 }).ToArray(), new[] { 3, 4, 5 });
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Wrap().Intersect(new[] { new C("3"), new C("4"), new C("5"), new C("6"), new C("7") }).ToArray(), new[] { new C("3"), new C("4"), new C("5") });
+		}
+
+		[Test]
+		public void IntersectWithComparerWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Wrap().Intersect(new[] { new C("31"), new C("41"), new C("51"), new C("61"), new C("71") }, new FirstLetterComparer()).ToArray(), new[] { new C("3"), new C("4"), new C("5") });
+		}
+
+		[Test]
+		public void IntersectWorksForLinqJSEnumerable() {
+			Assert.AreEqual(Enumerable.From(new[] { 1, 2, 3, 4, 5 }).Intersect(new[] { 3, 4, 5, 6, 7 }).ToArray(), new[] { 3, 4, 5 });
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }).Intersect(new[] { new C("3"), new C("4"), new C("5"), new C("6"), new C("7") }).ToArray(), new[] { new C("3"), new C("4"), new C("5") });
+		}
+
+		[Test]
+		public void IntersectWithComparerWorksForLinqJSEnumerable() {
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }).Intersect(new[] { new C("31"), new C("41"), new C("51"), new C("61"), new C("71") }, new FirstLetterComparer()).ToArray(), new[] { new C("3"), new C("4"), new C("5") });
+		}
+
+
 		[Test]
 		public void SequenceEqualWorksForArray() {
-			Assert.IsTrue(new[] { 1, 2, 3, 4, 5 }.SequenceEqual(new[] { 1, 2, 3, 4, 5 }));
+			Assert.IsTrue (new[] { 1, 2, 3, 4, 5 }.SequenceEqual(new[] { 1, 2, 3, 4, 5 }));
 			Assert.IsFalse(new[] { 1, 2, 3, 4, 5 }.SequenceEqual(new[] { 1, 2, 3, 4, 5, 6 }));
+			Assert.IsTrue (new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.SequenceEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }));
+			Assert.IsFalse(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.SequenceEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5"), new C("6") }));
 		}
 
 		[Test]
-		public void SequenceEqualWithCompareSelectorWorksForArray() {
-			Assert.IsTrue(new[] { new { i = 1 }, new { i = 2 }, new { i = 3 }, new { i = 4 }, new { i = 5 } }.SequenceEqual(new[] { new { i = 1 }, new { i = 2 }, new { i = 3 }, new { i = 4 }, new { i = 5 } }, x => x.i));
-			Assert.IsFalse(new[] { new { i = 1 }, new { i = 2 }, new { i = 3 }, new { i = 4 }, new { i = 5 } }.SequenceEqual(new[] { new { i = 1 }, new { i = 2 }, new { i = 3 }, new { i = 4 }, new { i = 5 }, new { i = 6 } }, x => x.i));
+		public void SequenceEqualWithComparerWorksForArray() {
+			Assert.IsTrue (new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("51") }.SequenceEqual(new[] { new C("12"), new C("22"), new C("32"), new C("42"), new C("52") }, new FirstLetterComparer()));
+			Assert.IsFalse(new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("51") }.SequenceEqual(new[] { new C("12"), new C("22"), new C("32"), new C("42"), new C("52"), new C("6") }, new FirstLetterComparer()));
+		}
+
+		[Test]
+		public void SequenceEqualWorksForSaltarelleEnumerable() {
+			Assert.IsTrue (new[] { 1, 2, 3, 4, 5 }.Wrap().SequenceEqual(new[] { 1, 2, 3, 4, 5 }));
+			Assert.IsFalse(new[] { 1, 2, 3, 4, 5 }.Wrap().SequenceEqual(new[] { 1, 2, 3, 4, 5, 6 }));
+			Assert.IsTrue (new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Wrap().SequenceEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }));
+			Assert.IsFalse(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }.Wrap().SequenceEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5"), new C("6") }));
+		}
+
+		[Test]
+		public void SequenceEqualWithComparerWorksForSaltarelleEnumerable() {
+			Assert.IsTrue (new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("51") }.Wrap().SequenceEqual(new[] { new C("12"), new C("22"), new C("32"), new C("42"), new C("52") }, new FirstLetterComparer()));
+			Assert.IsFalse(new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("51") }.Wrap().SequenceEqual(new[] { new C("12"), new C("22"), new C("32"), new C("42"), new C("52"), new C("6") }, new FirstLetterComparer()));
 		}
 
 		[Test]
 		public void SequenceEqualWorksForLinqJSEnumerable() {
-			Assert.IsTrue(Enumerable.Range(1, 5).SequenceEqual(Enumerable.Range(1, 5)));
-			Assert.IsFalse(Enumerable.Range(1, 5).SequenceEqual(Enumerable.Range(1, 6)));
+			Assert.IsTrue (Enumerable.From(new[] { 1, 2, 3, 4, 5 }).SequenceEqual(new[] { 1, 2, 3, 4, 5 }));
+			Assert.IsFalse(Enumerable.From(new[] { 1, 2, 3, 4, 5 }).SequenceEqual(new[] { 1, 2, 3, 4, 5, 6 }));
+			Assert.IsTrue (Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }).SequenceEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }));
+			Assert.IsFalse(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") }).SequenceEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5"), new C("6") }));
 		}
 
 		[Test]
-		public void SequenceEqualWithCompareSelectorWorksForLinqJSEnumerable() {
-			Assert.IsTrue(Enumerable.Range(1, 5).Select(i => new { i }).SequenceEqual(Enumerable.Range(1, 5).Select(i => new { i }), x => x.i));
-			Assert.IsFalse(Enumerable.Range(1, 5).Select(i => new { i }).SequenceEqual(Enumerable.Range(1, 6).Select(i => new { i }), x => x.i));
+		public void SequenceEqualWithComparerWorksForLinqJSEnumerable() {
+			Assert.IsTrue (Enumerable.From(new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("51") }).SequenceEqual(new[] { new C("12"), new C("22"), new C("32"), new C("42"), new C("52") }, new FirstLetterComparer()));
+			Assert.IsFalse(Enumerable.From(new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("51") }).SequenceEqual(new[] { new C("12"), new C("22"), new C("32"), new C("42"), new C("52"), new C("6") }, new FirstLetterComparer()));
 		}
 
 
 		[Test]
 		public void UnionWorksForArray() {
 			Assert.AreEqual(new[] { 1, 2, 3, 4 }.Union(new[] { 2, 3, 4, 5 }).ToArray(), new[] { 1, 2, 3, 4, 5 });
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4") }.Union(new[] { new C("2"), new C("3"), new C("4"), new C("5") }).ToArray(), new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") });
 		}
 
 		[Test]
-		public void UnionWithCompareSelectorWorksForArray() {
-			Assert.AreEqual(new[] { new { i = 1 }, new { i = 2 }, new { i = 3 }, new {i = 4 } }.Union(new[] { new { i = 2 }, new { i = 3 }, new {i = 4 },  new { i = 5 } }, x => x.i).ToArray(), new[] { new { i = 1 }, new { i = 2 }, new { i = 3 }, new {i = 4 }, new { i = 5 } });
+		public void UnionWithComparerWorksForArray() {
+			Assert.AreEqual(new[] { new C("11"), new C("21"), new C("31"), new C("41") }.Union(new[] { new C("22"), new C("32"), new C("42"), new C("52") }, new FirstLetterComparer()).ToArray(), new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("52") });
+		}
+
+		[Test]
+		public void UnionWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { 1, 2, 3, 4 }.Wrap().Union(new[] { 2, 3, 4, 5 }).ToArray(), new[] { 1, 2, 3, 4, 5 });
+			Assert.AreEqual(new[] { new C("1"), new C("2"), new C("3"), new C("4") }.Wrap().Union(new[] { new C("2"), new C("3"), new C("4"), new C("5") }).ToArray(), new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") });
+		}
+
+		[Test]
+		public void UnionWithComparerWorksForSaltarelleEnumerable() {
+			Assert.AreEqual(new[] { new C("11"), new C("21"), new C("31"), new C("41") }.Wrap().Union(new[] { new C("22"), new C("32"), new C("42"), new C("52") }, new FirstLetterComparer()).ToArray(), new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("52") });
 		}
 
 		[Test]
 		public void UnionWorksForLinqJSEnumerable() {
-			Assert.AreEqual(Enumerable.Range(1, 4).Union(Enumerable.Range(2, 4)).ToArray(), new[] { 1, 2, 3, 4, 5 });
+			Assert.AreEqual(Enumerable.From(new[] { 1, 2, 3, 4 }).Union(new[] { 2, 3, 4, 5 }).ToArray(), new[] { 1, 2, 3, 4, 5 });
+			Assert.AreEqual(Enumerable.From(new[] { new C("1"), new C("2"), new C("3"), new C("4") }).Union(new[] { new C("2"), new C("3"), new C("4"), new C("5") }).ToArray(), new[] { new C("1"), new C("2"), new C("3"), new C("4"), new C("5") });
 		}
 
 		[Test]
-		public void UnionWithCompareSelectorWorksForLinqJSEnumerable() {
-			Assert.AreEqual(Enumerable.Range(1, 4).Select(i => new { i }).Union(Enumerable.Range(2, 4).Select(i => new { i }), x => x.i).ToArray(), new[] { new { i = 1 }, new { i = 2 }, new { i = 3 }, new { i = 4 }, new { i = 5 } });
+		public void UnionWithComparerWorksForLinqJSEnumerable() {
+			Assert.AreEqual(Enumerable.From(new[] { new C("11"), new C("21"), new C("31"), new C("41") }).Union(new[] { new C("22"), new C("32"), new C("42"), new C("52") }, new FirstLetterComparer()).ToArray(), new[] { new C("11"), new C("21"), new C("31"), new C("41"), new C("52") });
 		}
 	}
 }
