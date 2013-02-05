@@ -59,6 +59,7 @@ Task Build-NuGetPackages -Depends Determine-Version, Run-Tests {
 	</metadata>
 	<files>
 		<file src="$baseDir\License.txt" target=""/>
+		<file src="$baseDir\history.txt" target=""/>
 		<file src="$baseDir\Linq\bin\Saltarelle.Linq.dll" target="lib"/>
 		<file src="$baseDir\Linq\bin\Saltarelle.Linq.xml" target="lib"/>
 		<file src="$baseDir\Linq.Script\bin\linq.js" target=""/>
