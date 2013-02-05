@@ -1,0 +1,2 @@
+1.9.0
+Initial version. Contains a wrapper for the QUnit API and compiler extensions to convert [Test] methods to test() calls. QUnit 1.9.0
