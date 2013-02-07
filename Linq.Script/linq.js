@@ -1533,12 +1533,18 @@
 
     /* Ordering Methods */
 
-    Enumerable.prototype.orderBy = function (keySelector) {
-        return new OrderedEnumerable(this, keySelector, false);
+    // Overload:function()
+    // Overload:function(keySelector)
+    // Overload:function(keySelector, comparer)
+    Enumerable.prototype.orderBy = function (keySelector, comparer) {
+        return new OrderedEnumerable(this, keySelector, comparer, false);
     };
 
-    Enumerable.prototype.orderByDescending = function (keySelector) {
-        return new OrderedEnumerable(this, keySelector, true);
+    // Overload:function()
+    // Overload:function(keySelector)
+    // Overload:function(keySelector, comparer)
+    Enumerable.prototype.orderByDescending = function (keySelector, comparer) {
+        return new OrderedEnumerable(this, keySelector, comparer, true);
     };
 
     Enumerable.prototype.reverse = function () {
@@ -2467,22 +2473,23 @@
 
     // private
 
-    var OrderedEnumerable = function (source, keySelector, descending, parent) {
+    var OrderedEnumerable = function (source, keySelector, comparer, descending, parent) {
         this.source = source;
         this.keySelector = Utils.createLambda(keySelector);
+        this.comparer = comparer || ss.Comparer.def;
         this.descending = descending;
         this.parent = parent;
     };
     OrderedEnumerable.prototype = new Enumerable();
 
-    OrderedEnumerable.prototype.createOrderedEnumerable = function (keySelector, descending) {
-        return new OrderedEnumerable(this.source, keySelector, descending, this);
+    OrderedEnumerable.prototype.createOrderedEnumerable = function (keySelector, comparer, descending) {
+        return new OrderedEnumerable(this.source, keySelector, comparer, descending, this);
     };
-    OrderedEnumerable.prototype.thenBy = function (keySelector) {
-        return this.createOrderedEnumerable(keySelector, false);
+    OrderedEnumerable.prototype.thenBy = function (keySelector, comparer) {
+        return this.createOrderedEnumerable(keySelector, comparer, false);
     };
-    OrderedEnumerable.prototype.thenByDescending = function (keySelector) {
-        return this.createOrderedEnumerable(keySelector, true);
+    OrderedEnumerable.prototype.thenByDescending = function (keySelector, comparer) {
+        return this.createOrderedEnumerable(keySelector, comparer, true);
     };
     OrderedEnumerable.prototype.getEnumerator = function () {
         var self = this;
@@ -2512,14 +2519,15 @@
         );
     };
 
-    var SortContext = function (keySelector, descending, child) {
+    var SortContext = function (keySelector, comparer, descending, child) {
         this.keySelector = keySelector;
+        this.comparer = comparer;
         this.descending = descending;
         this.child = child;
         this.keys = null;
     };
     SortContext.create = function (orderedEnumerable, currentContext) {
-        var context = new SortContext(orderedEnumerable.keySelector, orderedEnumerable.descending, currentContext);
+        var context = new SortContext(orderedEnumerable.keySelector, orderedEnumerable.comparer, orderedEnumerable.descending, currentContext);
         if (orderedEnumerable.parent != null) return SortContext.create(orderedEnumerable.parent, context);
         return context;
     };
@@ -2533,7 +2541,7 @@
         if (this.child != null) this.child.GenerateKeys(source);
     };
     SortContext.prototype.compare = function (index1, index2) {
-        var comparison = Utils.compare(this.keys[index1], this.keys[index2]);
+        var comparison = this.comparer.compare(this.keys[index1], this.keys[index2]);
 
         if (comparison == 0) {
             if (this.child != null) return this.child.compare(index1, index2);

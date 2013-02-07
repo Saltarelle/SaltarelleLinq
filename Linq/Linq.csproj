@@ -52,6 +52,7 @@
     <Compile Include="ILookup.cs" />
     <Compile Include="Enumerable.cs" />
     <Compile Include="Grouping.cs" />
+    <Compile Include="IOrderedEnumerable.cs" />
     <Compile Include="LinqJSEnumerable.cs" />
     <Compile Include="Lookup.cs" />
     <Compile Include="OrderedLinqJSEnumerable.cs" />
