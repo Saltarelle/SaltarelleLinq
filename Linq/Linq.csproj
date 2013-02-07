@@ -52,6 +52,7 @@
     <Compile Include="ILookup.cs" />
     <Compile Include="Enumerable.cs" />
     <Compile Include="Grouping.cs" />
+    <Compile Include="IOrderedEnumerable.cs" />
     <Compile Include="LinqJSEnumerable.cs" />
     <Compile Include="Lookup.cs" />
     <Compile Include="OrderedLinqJSEnumerable.cs" />
@@ -63,9 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib">
-      <HintPath>$(SolutionDir)packages\Saltarelle.Runtime.2.0.0\tools\Assemblies\mscorlib.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Saltarelle.Runtime.2.0.1\tools\Assemblies\mscorlib.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.0.0\tools\Saltarelle.Compiler.targets')" />
-  <Import Project="$(SolutionDir)packages\Saltarelle.Compiler.2.0.0\tools\Saltarelle.Compiler.targets" Condition="Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.0.0\tools\Saltarelle.Compiler.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="!Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.0.1\tools\Saltarelle.Compiler.targets')" />
+  <Import Project="$(SolutionDir)packages\Saltarelle.Compiler.2.0.1\tools\Saltarelle.Compiler.targets" Condition="Exists('$(SolutionDir)packages\Saltarelle.Compiler.2.0.1\tools\Saltarelle.Compiler.targets')" />
 </Project>

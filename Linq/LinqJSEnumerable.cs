@@ -4,52 +4,52 @@ using System.Runtime.CompilerServices;
 
 namespace System.Linq {
 	[Imported]
-	public class LinqJSEnumerable<TSource> : IEnumerable<TSource> {
+	public class LinqJSEnumerable<TElement> : IEnumerable<TElement> {
 		internal LinqJSEnumerable() {}
 
-		public IEnumerator<TSource> GetEnumerator() { return null; }
+		public IEnumerator<TElement> GetEnumerator() { return null; }
 
 		IEnumerator IEnumerable.GetEnumerator() { return null; }
 
 		#region Projection / filtering
 
-		public LinqJSEnumerable<TSource> CascadeBreadthFirst(Func<TSource, IEnumerable<TSource>> func) { return null; }
+		public LinqJSEnumerable<TElement> CascadeBreadthFirst(Func<TElement, IEnumerable<TElement>> func) { return null; }
 
-		public LinqJSEnumerable<TResult> CascadeBreadthFirst<TResult>(Func<TSource, IEnumerable<TSource>> func, Func<TSource, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> CascadeBreadthFirst<TResult>(Func<TElement, IEnumerable<TElement>> func, Func<TElement, TResult> resultSelector) { return null; }
 
-		public LinqJSEnumerable<TResult> CascadeBreadthFirst<TResult>(Func<TSource, IEnumerable<TSource>> func, Func<TSource, int, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> CascadeBreadthFirst<TResult>(Func<TElement, IEnumerable<TElement>> func, Func<TElement, int, TResult> resultSelector) { return null; }
 
 
-		public LinqJSEnumerable<TSource> CascadeDepthFirst(Func<TSource, IEnumerable<TSource>> func) { return null; }
+		public LinqJSEnumerable<TElement> CascadeDepthFirst(Func<TElement, IEnumerable<TElement>> func) { return null; }
 
-		public LinqJSEnumerable<TResult> CascadeDepthFirst<TResult>(Func<TSource, IEnumerable<TSource>> func, Func<TSource, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> CascadeDepthFirst<TResult>(Func<TElement, IEnumerable<TElement>> func, Func<TElement, TResult> resultSelector) { return null; }
 
-		public LinqJSEnumerable<TResult> CascadeDepthFirst<TResult>(Func<TSource, IEnumerable<TSource>> func, Func<TSource, int, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> CascadeDepthFirst<TResult>(Func<TElement, IEnumerable<TElement>> func, Func<TElement, int, TResult> resultSelector) { return null; }
 
 
 		public LinqJSEnumerable<object> Flatten() { return null; }
 
 
-		public LinqJSEnumerable<TResult> Pairwise<TResult>(Func<TSource, TSource, TResult> selector) { return null; }
+		public LinqJSEnumerable<TResult> Pairwise<TResult>(Func<TElement, TElement, TResult> selector) { return null; }
 
 
 		public static LinqJSEnumerable<T> Scan<T>(Func<T, T, T> func) { return null; }
 
-		public LinqJSEnumerable<TAccumulate> Scan<TAccumulate>(TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func) { return null; }
+		public LinqJSEnumerable<TAccumulate> Scan<TAccumulate>(TAccumulate seed, Func<TAccumulate, TElement, TAccumulate> func) { return null; }
 
 
-		public LinqJSEnumerable<TResult> Select<TResult>(Func<TSource, TResult> selector) { return null; }
+		public LinqJSEnumerable<TResult> Select<TResult>(Func<TElement, TResult> selector) { return null; }
 
-		public LinqJSEnumerable<TResult> Select<TResult>(Func<TSource, int, TResult> selector) { return null; }
+		public LinqJSEnumerable<TResult> Select<TResult>(Func<TElement, int, TResult> selector) { return null; }
 
 
-		public LinqJSEnumerable<TResult> SelectMany<TResult>(Func<TSource, IEnumerable<TResult>> selector) { return null; }
+		public LinqJSEnumerable<TResult> SelectMany<TResult>(Func<TElement, IEnumerable<TResult>> selector) { return null; }
 
-		public LinqJSEnumerable<TResult> SelectMany<TResult>(Func<TSource, int, IEnumerable<TResult>> selector) { return null; }
+		public LinqJSEnumerable<TResult> SelectMany<TResult>(Func<TElement, int, IEnumerable<TResult>> selector) { return null; }
 
-		public LinqJSEnumerable<TResult> SelectMany<TCollection, TResult>(Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> SelectMany<TCollection, TResult>(Func<TElement, IEnumerable<TCollection>> collectionSelector, Func<TElement, TCollection, TResult> resultSelector) { return null; }
 
-		public LinqJSEnumerable<TResult> SelectMany<TCollection, TResult>(Func<TSource, int, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> SelectMany<TCollection, TResult>(Func<TElement, int, IEnumerable<TCollection>> collectionSelector, Func<TElement, TCollection, TResult> resultSelector) { return null; }
 
 
 		[InlineCode("{this}.select(function(x) {{ return {$System.Script}.cast(x, {TResult}); }})")]
@@ -60,387 +60,394 @@ namespace System.Linq {
 		public LinqJSEnumerable<TResult> OfType<TResult>() { return null; }
 
 
-		public LinqJSEnumerable<TResult> Zip<TOther, TResult>(IEnumerable<TOther> other, Func<TSource, TOther, TResult> selector) { return null; }
+		public LinqJSEnumerable<TResult> Zip<TOther, TResult>(IEnumerable<TOther> other, Func<TElement, TOther, TResult> selector) { return null; }
 
-		public LinqJSEnumerable<TResult> Zip<TOther, TResult>(IEnumerable<TOther> other, Func<TSource, TOther, int, TResult> selector) { return null; }
+		public LinqJSEnumerable<TResult> Zip<TOther, TResult>(IEnumerable<TOther> other, Func<TElement, TOther, int, TResult> selector) { return null; }
 
 
-		public LinqJSEnumerable<TSource> Where(Func<TSource, bool> predicate) { return null; }
+		public LinqJSEnumerable<TElement> Where(Func<TElement, bool> predicate) { return null; }
 
-		public LinqJSEnumerable<TSource> Where(Func<TSource, int, bool> predicate) { return null; }
+		public LinqJSEnumerable<TElement> Where(Func<TElement, int, bool> predicate) { return null; }
 
 		#endregion
 
 		#region Join
 
-		public LinqJSEnumerable<TResult> Join<TInner, TKey, TResult>(IEnumerable<TInner> inner, Func<TSource, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TSource, TInner, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> Join<TInner, TKey, TResult>(IEnumerable<TInner> inner, Func<TElement, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TElement, TInner, TResult> resultSelector) { return null; }
 
-		public LinqJSEnumerable<TResult> Join<TInner, TKey, TResult>(IEnumerable<TInner> inner, Func<TSource, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TSource, TInner, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
+		public LinqJSEnumerable<TResult> Join<TInner, TKey, TResult>(IEnumerable<TInner> inner, Func<TElement, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TElement, TInner, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 
-		public LinqJSEnumerable<TResult> GroupJoin<TInner, TKey, TResult>(IEnumerable<TInner> inner, Func<TSource, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TSource, IEnumerable<TInner>, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> GroupJoin<TInner, TKey, TResult>(IEnumerable<TInner> inner, Func<TElement, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TElement, IEnumerable<TInner>, TResult> resultSelector) { return null; }
 
-		public LinqJSEnumerable<TResult> GroupJoin<TInner, TKey, TResult>(IEnumerable<TInner> inner, Func<TSource, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TSource, IEnumerable<TInner>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
+		public LinqJSEnumerable<TResult> GroupJoin<TInner, TKey, TResult>(IEnumerable<TInner> inner, Func<TElement, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TElement, IEnumerable<TInner>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 		#endregion
 
 		#region Set methods
 
-		public bool All(Func<TSource, bool> predicate) { return false; }
+		public bool All(Func<TElement, bool> predicate) { return false; }
 
 
 		public bool Any() { return false; }
 
-		public bool Any(Func<TSource, bool> predicate) { return false; }
+		public bool Any(Func<TElement, bool> predicate) { return false; }
 
 
-		public LinqJSEnumerable<TSource> Concat(IEnumerable<TSource> other) { return null; }
+		public LinqJSEnumerable<TElement> Concat(IEnumerable<TElement> other) { return null; }
 
 
-		public LinqJSEnumerable<TSource> Insert(int index, IEnumerable<TSource> other) { return null; }
+		public LinqJSEnumerable<TElement> Insert(int index, IEnumerable<TElement> other) { return null; }
 
 
-		public LinqJSEnumerable<TSource> Alternate(TSource value) { return null; }
+		public LinqJSEnumerable<TElement> Alternate(TElement value) { return null; }
 
 
-		public bool Contains(TSource value) { return false; }
+		public bool Contains(TElement value) { return false; }
 
-		public bool Contains(TSource value, IEqualityComparer<TSource> comparer) { return false; }
+		public bool Contains(TElement value, IEqualityComparer<TElement> comparer) { return false; }
 
-		[InlineCode("{this}.defaultIfEmpty(ss.getDefaultValue({TSource}))")]
-		public LinqJSEnumerable<TSource> DefaultIfEmpty() { return null; }
+		[InlineCode("{this}.defaultIfEmpty(ss.getDefaultValue({TElement}))")]
+		public LinqJSEnumerable<TElement> DefaultIfEmpty() { return null; }
 
-		public LinqJSEnumerable<TSource> DefaultIfEmpty(TSource defaultValue) { return null; }
-
-
-		public LinqJSEnumerable<TSource> Distinct() { return null; }
-
-		public LinqJSEnumerable<TSource> Distinct(IEqualityComparer<TSource> comparer) { return null; }
+		public LinqJSEnumerable<TElement> DefaultIfEmpty(TElement defaultValue) { return null; }
 
 
-		public LinqJSEnumerable<TSource> Except(IEnumerable<TSource> other) { return null; }
+		public LinqJSEnumerable<TElement> Distinct() { return null; }
 
-		public LinqJSEnumerable<TSource> Except(IEnumerable<TSource> other, IEqualityComparer<TSource> comparer) { return null; }
-
-
-		public bool SequenceEqual(IEnumerable<TSource> other) { return false; }
-
-		public bool SequenceEqual<TKey>(IEnumerable<TSource> other, Func<TSource, TKey> compareSelector) { return false; }
+		public LinqJSEnumerable<TElement> Distinct(IEqualityComparer<TElement> comparer) { return null; }
 
 
-		public LinqJSEnumerable<TSource> Union(IEnumerable<TSource> other) { return null; }
+		public LinqJSEnumerable<TElement> Except(IEnumerable<TElement> other) { return null; }
 
-		public LinqJSEnumerable<TSource> Union(IEnumerable<TSource> other, IEqualityComparer<TSource> comparer) { return null; }
+		public LinqJSEnumerable<TElement> Except(IEnumerable<TElement> other, IEqualityComparer<TElement> comparer) { return null; }
+
+
+		public bool SequenceEqual(IEnumerable<TElement> other) { return false; }
+
+		public bool SequenceEqual<TKey>(IEnumerable<TElement> other, Func<TElement, TKey> compareSelector) { return false; }
+
+
+		public LinqJSEnumerable<TElement> Union(IEnumerable<TElement> other) { return null; }
+
+		public LinqJSEnumerable<TElement> Union(IEnumerable<TElement> other, IEqualityComparer<TElement> comparer) { return null; }
 
 		#endregion
 
 		#region Ordering
 
-		public OrderedLinqJSEnumerable<TSource> OrderBy() { return null; }
+		public OrderedLinqJSEnumerable<TElement> OrderBy() { return null; }
 
-		public OrderedLinqJSEnumerable<TSource> OrderBy<TKey>(Func<TSource, TKey> keySelector) { return null; }
+		public OrderedLinqJSEnumerable<TElement> OrderBy<TKey>(Func<TElement, TKey> keySelector) { return null; }
 
-		public OrderedLinqJSEnumerable<TSource> OrderByDescending() { return null; }
+		public OrderedLinqJSEnumerable<TElement> OrderBy<TKey>(Func<TElement, TKey> keySelector, IComparer<TKey> comparer) { return null; }
 
-		public OrderedLinqJSEnumerable<TSource> OrderByDescending<TKey>(Func<TSource, TKey> keySelector) { return null; }
 
-		public LinqJSEnumerable<TSource> Reverse() { return null; }
+		public OrderedLinqJSEnumerable<TElement> OrderByDescending() { return null; }
 
-		public LinqJSEnumerable<TSource> Shuffle() { return null; }
+		public OrderedLinqJSEnumerable<TElement> OrderByDescending<TKey>(Func<TElement, TKey> keySelector) { return null; }
+
+		public OrderedLinqJSEnumerable<TElement> OrderByDescending<TKey>(Func<TElement, TKey> keySelector, IComparer<TKey> comparer) { return null; }
+
+
+		public LinqJSEnumerable<TElement> Reverse() { return null; }
+
+
+		public LinqJSEnumerable<TElement> Shuffle() { return null; }
 
 		#endregion
 
 		#region Grouping
 
-		public LinqJSEnumerable<Grouping<TKey, TSource>> GroupBy<TKey>(Func<TSource, TKey> keySelector) { return null; }
+		public LinqJSEnumerable<Grouping<TKey, TElement>> GroupBy<TKey>(Func<TElement, TKey> keySelector) { return null; }
 
 		[InlineCode("{this}.groupBy({keySelector}, null, null, {comparer})")]
-		public LinqJSEnumerable<Grouping<TKey, TSource>> GroupBy<TKey>(Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
+		public LinqJSEnumerable<Grouping<TKey, TElement>> GroupBy<TKey>(Func<TElement, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
 
-		public LinqJSEnumerable<Grouping<TKey, TElement>> GroupBy<TKey, TElement>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) { return null; }
+		public LinqJSEnumerable<Grouping<TKey, TElement>> GroupBy<TKey, TElement>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector) { return null; }
 
 		[InlineCode("{this}.groupBy({keySelector}, null, {resultSelector})")]
-		public LinqJSEnumerable<TResult> GroupBy<TKey, TResult>(Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> GroupBy<TKey, TResult>(Func<TElement, TKey> keySelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) { return null; }
 
 		[InlineCode("{this}.groupBy({keySelector}, {elementSelector}, null, {comparer})")]
-		public LinqJSEnumerable<Grouping<TKey, TElement>> GroupBy<TKey, TElement>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
+		public LinqJSEnumerable<Grouping<TKey, TElement>> GroupBy<TKey, TElement>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
 
-		public LinqJSEnumerable<TResult> GroupBy<TKey, TElement, TResult>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> GroupBy<TKey, TElement, TResult>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) { return null; }
 
 		[InlineCode("{this}.groupBy({keySelector}, null, {resultSelector}, {comparer})")]
-		public LinqJSEnumerable<TResult> GroupBy<TKey, TResult>(Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
+		public LinqJSEnumerable<TResult> GroupBy<TKey, TResult>(Func<TElement, TKey> keySelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
 
-		public LinqJSEnumerable<TResult> GroupBy<TKey, TElement, TResult>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comperer) { return null; }
+		public LinqJSEnumerable<TResult> GroupBy<TKey, TElement, TResult>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comperer) { return null; }
 
 
-		public LinqJSEnumerable<Grouping<TKey, TSource>> PartitionBy<TKey>(Func<TSource, TKey> keySelector) { return null; }
+		public LinqJSEnumerable<Grouping<TKey, TElement>> PartitionBy<TKey>(Func<TElement, TKey> keySelector) { return null; }
 
 		[InlineCode("{this}.partitionBy({keySelector}, null, null, {comparer})")]
-		public LinqJSEnumerable<Grouping<TKey, TSource>> PartitionBy<TKey>(Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
+		public LinqJSEnumerable<Grouping<TKey, TElement>> PartitionBy<TKey>(Func<TElement, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
 
-		public LinqJSEnumerable<Grouping<TKey, TElement>> PartitionBy<TKey, TElement>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) { return null; }
+		public LinqJSEnumerable<Grouping<TKey, TElement>> PartitionBy<TKey, TElement>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector) { return null; }
 
 		[InlineCode("{this}.partitionBy({keySelector}, null, {resultSelector})")]
-		public LinqJSEnumerable<TResult> PartitionBy<TKey, TResult>(Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> PartitionBy<TKey, TResult>(Func<TElement, TKey> keySelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) { return null; }
 
 		[InlineCode("{this}.partitionBy({keySelector}, {elementSelector}, null, {comparer})")]
-		public LinqJSEnumerable<Grouping<TKey, TElement>> PartitionBy<TKey, TElement>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
+		public LinqJSEnumerable<Grouping<TKey, TElement>> PartitionBy<TKey, TElement>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
 
-		public LinqJSEnumerable<TResult> PartitionBy<TKey, TElement, TResult>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) { return null; }
+		public LinqJSEnumerable<TResult> PartitionBy<TKey, TElement, TResult>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector) { return null; }
 
 		[InlineCode("{this}.partitionBy({keySelector}, null, {resultSelector}, {comparer})")]
-		public LinqJSEnumerable<TResult> PartitionBy<TKey, TResult>(Func<TSource, TKey> keySelector, Func<TKey, IEnumerable<TSource>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
+		public LinqJSEnumerable<TResult> PartitionBy<TKey, TResult>(Func<TElement, TKey> keySelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comparer) { return null; }
 
-		public LinqJSEnumerable<TResult> PartitionBy<TKey, TElement, TResult>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comperer) { return null; }
+		public LinqJSEnumerable<TResult> PartitionBy<TKey, TElement, TResult>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector, Func<TKey, IEnumerable<TElement>, TResult> resultSelector, IEqualityComparer<TKey> comperer) { return null; }
 
 
-		public LinqJSEnumerable<TSource[]> Buffer(int count) { return null; }
+		public LinqJSEnumerable<TElement[]> Buffer(int count) { return null; }
 
 		#endregion
 
 		#region Aggregate
 
-		public TSource Aggregate(Func<TSource, TSource, TSource> func) { return default(TSource); }
+		public TElement Aggregate(Func<TElement, TElement, TElement> func) { return default(TElement); }
 
-		public TAccumulate Aggregate<TAccumulate>(TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func) { return default(TAccumulate); }
+		public TAccumulate Aggregate<TAccumulate>(TAccumulate seed, Func<TAccumulate, TElement, TAccumulate> func) { return default(TAccumulate); }
 
-		public TResult Aggregate<TAccumulate, TResult>(TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func, Func<TAccumulate, TResult> resultSelector) { return default(TResult); }
+		public TResult Aggregate<TAccumulate, TResult>(TAccumulate seed, Func<TAccumulate, TElement, TAccumulate> func, Func<TAccumulate, TResult> resultSelector) { return default(TResult); }
 
 
-		public double Average(Func<TSource, int> selector) { return 0; }
+		public double Average(Func<TElement, int> selector) { return 0; }
 
-		public double Average(Func<TSource, long> selector) { return 0; }
+		public double Average(Func<TElement, long> selector) { return 0; }
 
-		public float Average(Func<TSource, float> selector) { return 0; }
+		public float Average(Func<TElement, float> selector) { return 0; }
 
-		public double Average(Func<TSource, double> selector) { return 0; }
+		public double Average(Func<TElement, double> selector) { return 0; }
 
-		public decimal Average(Func<TSource, decimal> selector) { return 0; }
+		public decimal Average(Func<TElement, decimal> selector) { return 0; }
 
 
 		public int Count() { return 0; }
 
-		public int Count(Func<TSource, bool> predicate) { return 0; }
+		public int Count(Func<TElement, bool> predicate) { return 0; }
 
 
-		public int Max(Func<TSource, int> selector) { return 0; }
+		public int Max(Func<TElement, int> selector) { return 0; }
 
-		public long Max(Func<TSource, long> selector) { return 0; }
+		public long Max(Func<TElement, long> selector) { return 0; }
 
-		public float Max(Func<TSource, float> selector) { return 0; }
+		public float Max(Func<TElement, float> selector) { return 0; }
 
-		public double Max(Func<TSource, double> selector) { return 0; }
+		public double Max(Func<TElement, double> selector) { return 0; }
 
-		public decimal Max(Func<TSource, decimal> selector) { return 0; }
-
-
-		public int Min(Func<TSource, int> selector) { return 0; }
-
-		public long Min(Func<TSource, long> selector) { return 0; }
-
-		public float Min(Func<TSource, float> selector) { return 0; }
-
-		public double Min(Func<TSource, double> selector) { return 0; }
-
-		public decimal Min(Func<TSource, decimal> selector) { return 0; }
+		public decimal Max(Func<TElement, decimal> selector) { return 0; }
 
 
-		public TSource MaxBy(Func<TSource, int> selector) { return default(TSource); }
+		public int Min(Func<TElement, int> selector) { return 0; }
 
-		public TSource MaxBy(Func<TSource, long> selector) { return default(TSource); }
+		public long Min(Func<TElement, long> selector) { return 0; }
 
-		public TSource MaxBy(Func<TSource, float> selector) { return default(TSource); }
+		public float Min(Func<TElement, float> selector) { return 0; }
 
-		public TSource MaxBy(Func<TSource, double> selector) { return default(TSource); }
+		public double Min(Func<TElement, double> selector) { return 0; }
 
-		public TSource MaxBy(Func<TSource, decimal> selector) { return default(TSource); }
-
-
-		public TSource MinBy(Func<TSource, int> selector) { return default(TSource); }
-
-		public TSource MinBy(Func<TSource, long> selector) { return default(TSource); }
-
-		public TSource MinBy(Func<TSource, float> selector) { return default(TSource); }
-
-		public TSource MinBy(Func<TSource, double> selector) { return default(TSource); }
-
-		public TSource MinBy(Func<TSource, decimal> selector) { return default(TSource); }
+		public decimal Min(Func<TElement, decimal> selector) { return 0; }
 
 
-		public int Sum(Func<TSource, int> selector) { return 0; }
+		public TElement MaxBy(Func<TElement, int> selector) { return default(TElement); }
 
-		public long Sum(Func<TSource, long> selector) { return 0; }
+		public TElement MaxBy(Func<TElement, long> selector) { return default(TElement); }
 
-		public float Sum(Func<TSource, float> selector) { return 0; }
+		public TElement MaxBy(Func<TElement, float> selector) { return default(TElement); }
 
-		public double Sum(Func<TSource, double> selector) { return 0; }
+		public TElement MaxBy(Func<TElement, double> selector) { return default(TElement); }
 
-		public decimal Sum(Func<TSource, decimal> selector) { return 0; }
+		public TElement MaxBy(Func<TElement, decimal> selector) { return default(TElement); }
+
+
+		public TElement MinBy(Func<TElement, int> selector) { return default(TElement); }
+
+		public TElement MinBy(Func<TElement, long> selector) { return default(TElement); }
+
+		public TElement MinBy(Func<TElement, float> selector) { return default(TElement); }
+
+		public TElement MinBy(Func<TElement, double> selector) { return default(TElement); }
+
+		public TElement MinBy(Func<TElement, decimal> selector) { return default(TElement); }
+
+
+		public int Sum(Func<TElement, int> selector) { return 0; }
+
+		public long Sum(Func<TElement, long> selector) { return 0; }
+
+		public float Sum(Func<TElement, float> selector) { return 0; }
+
+		public double Sum(Func<TElement, double> selector) { return 0; }
+
+		public decimal Sum(Func<TElement, decimal> selector) { return 0; }
 
 		#endregion
 
 		#region Paging
 
-		public TSource ElementAt(int index) { return default(TSource); }
+		public TElement ElementAt(int index) { return default(TElement); }
 
 
-		[InlineCode("{this}.elementAtOrDefault({index}, ss.getDefaultValue({TSource}))")]
-		public TSource ElementAtOrDefault(int index) { return default(TSource); }
+		[InlineCode("{this}.elementAtOrDefault({index}, ss.getDefaultValue({TElement}))")]
+		public TElement ElementAtOrDefault(int index) { return default(TElement); }
 
 
-		public TSource ElementAtOrDefault(int index, TSource defaultValue) { return default(TSource); }
+		public TElement ElementAtOrDefault(int index, TElement defaultValue) { return default(TElement); }
 
 
-		public TSource First() { return default(TSource); }
+		public TElement First() { return default(TElement); }
 
-		public TSource First(Func<TSource, bool> predicate) { return default(TSource); }
+		public TElement First(Func<TElement, bool> predicate) { return default(TElement); }
 
 
-		[InlineCode("{this}.firstOrDefault(null, ss.getDefaultValue({TSource}))")]
-		public TSource FirstOrDefault() { return default(TSource); }
+		[InlineCode("{this}.firstOrDefault(null, ss.getDefaultValue({TElement}))")]
+		public TElement FirstOrDefault() { return default(TElement); }
 
 		[InlineCode("{this}.firstOrDefault(null, {defaultValue})")]
-		public TSource FirstOrDefault(TSource defaultValue) { return default(TSource); }
+		public TElement FirstOrDefault(TElement defaultValue) { return default(TElement); }
 
-		[InlineCode("{this}.firstOrDefault({predicate}, ss.getDefaultValue({TSource}))")]
-		public TSource FirstOrDefault(Func<TSource, bool> predicate) { return default(TSource); }
+		[InlineCode("{this}.firstOrDefault({predicate}, ss.getDefaultValue({TElement}))")]
+		public TElement FirstOrDefault(Func<TElement, bool> predicate) { return default(TElement); }
 
 		[InlineCode("{this}.firstOrDefault({predicate}, {defaultValue})")]
-		public TSource FirstOrDefault(Func<TSource, bool> predicate, TSource defaultValue) { return default(TSource); }
+		public TElement FirstOrDefault(Func<TElement, bool> predicate, TElement defaultValue) { return default(TElement); }
 
 
-		public TSource Last() { return default(TSource); }
+		public TElement Last() { return default(TElement); }
 
-		public TSource Last(Func<TSource, bool> predicate) { return default(TSource); }
+		public TElement Last(Func<TElement, bool> predicate) { return default(TElement); }
 
 
-		[InlineCode("{this}.lastOrDefault(null, ss.getDefaultValue({TSource}))")]
-		public TSource LastOrDefault() { return default(TSource); }
+		[InlineCode("{this}.lastOrDefault(null, ss.getDefaultValue({TElement}))")]
+		public TElement LastOrDefault() { return default(TElement); }
 
 		[InlineCode("{this}.lastOrDefault(null, {defaultValue})")]
-		public TSource LastOrDefault(TSource defaultValue) { return default(TSource); }
+		public TElement LastOrDefault(TElement defaultValue) { return default(TElement); }
 
-		[InlineCode("{this}.lastOrDefault({predicate}, ss.getDefaultValue({TSource}))")]
-		public TSource LastOrDefault(Func<TSource, bool> predicate) { return default(TSource); }
+		[InlineCode("{this}.lastOrDefault({predicate}, ss.getDefaultValue({TElement}))")]
+		public TElement LastOrDefault(Func<TElement, bool> predicate) { return default(TElement); }
 
 		[InlineCode("{this}.lastOrDefault({predicate}, {defaultValue})")]
-		public TSource LastOrDefault(Func<TSource, bool> predicate, TSource defaultValue) { return default(TSource); }
+		public TElement LastOrDefault(Func<TElement, bool> predicate, TElement defaultValue) { return default(TElement); }
 
 
-		public TSource Single() { return default(TSource); }
+		public TElement Single() { return default(TElement); }
 
-		public TSource Single(Func<TSource, bool> predicate) { return default(TSource); }
+		public TElement Single(Func<TElement, bool> predicate) { return default(TElement); }
 
 
-		[InlineCode("{this}.singleOrDefault(null, ss.getDefaultValue({TSource}))")]
-		public TSource SingleOrDefault() { return default(TSource); }
+		[InlineCode("{this}.singleOrDefault(null, ss.getDefaultValue({TElement}))")]
+		public TElement SingleOrDefault() { return default(TElement); }
 
 		[InlineCode("{this}.singleOrDefault(null, {defaultValue})")]
-		public TSource SingleOrDefault(TSource defaultValue) { return default(TSource); }
+		public TElement SingleOrDefault(TElement defaultValue) { return default(TElement); }
 
-		[InlineCode("{this}.singleOrDefault({predicate}, ss.getDefaultValue({TSource}))")]
-		public TSource SingleOrDefault(Func<TSource, bool> predicate) { return default(TSource); }
+		[InlineCode("{this}.singleOrDefault({predicate}, ss.getDefaultValue({TElement}))")]
+		public TElement SingleOrDefault(Func<TElement, bool> predicate) { return default(TElement); }
 
 		[InlineCode("{this}.singleOrDefault({predicate}, {defaultValue})")]
-		public TSource SingleOrDefault(Func<TSource, bool> predicate, TSource defaultValue) { return default(TSource); }
+		public TElement SingleOrDefault(Func<TElement, bool> predicate, TElement defaultValue) { return default(TElement); }
 
 
-		public LinqJSEnumerable<TSource> Skip(int count) { return null; }
+		public LinqJSEnumerable<TElement> Skip(int count) { return null; }
 
 
-		public LinqJSEnumerable<TSource> SkipWhile(Func<TSource, bool> predicate) { return null; }
+		public LinqJSEnumerable<TElement> SkipWhile(Func<TElement, bool> predicate) { return null; }
 
-		public LinqJSEnumerable<TSource> SkipWhile(Func<TSource, int, bool> predicate) { return null; }
-
-
-		public LinqJSEnumerable<TSource> Take(int count) { return null; }
+		public LinqJSEnumerable<TElement> SkipWhile(Func<TElement, int, bool> predicate) { return null; }
 
 
-		public LinqJSEnumerable<TSource> TakeWhile(Func<TSource, bool> predicate) { return null; }
-
-		public LinqJSEnumerable<TSource> TakeWhile(Func<TSource, int, bool> predicate) { return null; }
+		public LinqJSEnumerable<TElement> Take(int count) { return null; }
 
 
-		public LinqJSEnumerable<TSource> TakeExceptLast() { return null; }
+		public LinqJSEnumerable<TElement> TakeWhile(Func<TElement, bool> predicate) { return null; }
 
-		public LinqJSEnumerable<TSource> TakeExceptLast(int count) { return null; }
-
-
-		public LinqJSEnumerable<TSource> TakeFromLast(int count) { return null; }
+		public LinqJSEnumerable<TElement> TakeWhile(Func<TElement, int, bool> predicate) { return null; }
 
 
-		public int IndexOf(TSource item) { return 0; }
+		public LinqJSEnumerable<TElement> TakeExceptLast() { return null; }
 
-		public int IndexOf(TSource item, Func<TSource, bool> predicate) { return 0; }
-
-		public int IndexOf(TSource item, IEqualityComparer<TSource> comparer) { return 0; }
+		public LinqJSEnumerable<TElement> TakeExceptLast(int count) { return null; }
 
 
-		public int LastIndexOf(TSource item) { return 0; }
+		public LinqJSEnumerable<TElement> TakeFromLast(int count) { return null; }
 
-		public int LastIndexOf(TSource item, Func<TSource, bool> predicate) { return 0; }
 
-		public int LastIndexOf(TSource item, IEqualityComparer<TSource> comparer) { return 0; }
+		public int IndexOf(TElement item) { return 0; }
+
+		public int IndexOf(TElement item, Func<TElement, bool> predicate) { return 0; }
+
+		public int IndexOf(TElement item, IEqualityComparer<TElement> comparer) { return 0; }
+
+
+		public int LastIndexOf(TElement item) { return 0; }
+
+		public int LastIndexOf(TElement item, Func<TElement, bool> predicate) { return 0; }
+
+		public int LastIndexOf(TElement item, IEqualityComparer<TElement> comparer) { return 0; }
 
 		#endregion
 
 		#region Convert
 		
-		public TSource[] ToArray() { return null; }
+		public TElement[] ToArray() { return null; }
 
 
 		[ScriptName("toArray")]
-		public List<TSource> ToList() { return null; }
+		public List<TElement> ToList() { return null; }
 
 
-		public Lookup<TKey, TSource> ToLookup<TKey>(Func<TSource, TKey> keySelector) { return null; }
+		public Lookup<TKey, TElement> ToLookup<TKey>(Func<TElement, TKey> keySelector) { return null; }
 
 		[InlineCode("{this}.toLookup({keySelector}, null, {comparer})")]
-		public Lookup<TKey, TSource> ToLookup<TKey>(Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
+		public Lookup<TKey, TElement> ToLookup<TKey>(Func<TElement, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
 
-		public Lookup<TKey, TElement> ToLookup<TKey, TElement>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) { return null; }
+		public Lookup<TKey, TElement> ToLookup<TKey, TElement>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector) { return null; }
 
-		public Lookup<TKey, TElement> ToLookup<TKey, TElement>(Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
-
-
-		public JsDictionary<TKey, TValue> ToObject<TKey, TValue>(Func<TSource, TKey> keySelector, Func<TSource, TValue> valueSelector) { return null; }
+		public Lookup<TKey, TElement> ToLookup<TKey, TElement>(Func<TElement, TKey> keySelector, Func<TElement, TElement> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 
-		[InlineCode("{this}.toDictionary({keySelector}, null, {TKey}, {TSource})")]
-		public IDictionary<TKey, TSource> ToDictionary<TKey>(Func<TSource, TKey> keySelector) { return null; }
+		public JsDictionary<TKey, TValue> ToObject<TKey, TValue>(Func<TElement, TKey> keySelector, Func<TElement, TValue> valueSelector) { return null; }
 
-		[InlineCode("{this}.toDictionary({keySelector}, null, {TKey}, {TSource}, {comparer})")]
-		public IDictionary<TKey, TSource> ToDictionary<TKey>(Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
+
+		[InlineCode("{this}.toDictionary({keySelector}, null, {TKey}, {TElement})")]
+		public IDictionary<TKey, TElement> ToDictionary<TKey>(Func<TElement, TKey> keySelector) { return null; }
+
+		[InlineCode("{this}.toDictionary({keySelector}, null, {TKey}, {TElement}, {comparer})")]
+		public IDictionary<TKey, TElement> ToDictionary<TKey>(Func<TElement, TKey> keySelector, IEqualityComparer<TKey> comparer) { return null; }
 
 		[InlineCode("{this}.toDictionary({keySelector}, {elementSelector}, {TKey}, {TValue})")]
-		public IDictionary<TKey, TValue> ToDictionary<TKey, TValue>(Func<TSource, TKey> keySelector, Func<TSource, TValue> elementSelector) { return null; }
+		public IDictionary<TKey, TValue> ToDictionary<TKey, TValue>(Func<TElement, TKey> keySelector, Func<TElement, TValue> elementSelector) { return null; }
 
 		[InlineCode("{this}.toDictionary({keySelector}, {elementSelector}, {TKey}, {TValue}, {comparer})")]
-		public IDictionary<TKey, TValue> ToDictionary<TKey, TValue>(Func<TSource, TKey> keySelector, Func<TSource, TValue> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
+		public IDictionary<TKey, TValue> ToDictionary<TKey, TValue>(Func<TElement, TKey> keySelector, Func<TElement, TValue> elementSelector, IEqualityComparer<TKey> comparer) { return null; }
 
 
 		public string ToJoinedString() { return null; }
 
 		public string ToJoinedString(string separator) { return null; }
 
-		public string ToJoinedString(string separator, Func<TSource, string> selector) { return null; }
+		public string ToJoinedString(string separator, Func<TElement, string> selector) { return null; }
 
 		#endregion
 
 		#region Action
 
-		public LinqJSEnumerable<TSource> DoAction(Action<TSource> action) { return null; }
+		public LinqJSEnumerable<TElement> DoAction(Action<TElement> action) { return null; }
 
-		public LinqJSEnumerable<TSource> DoAction(Action<TSource, int> action) { return null; }
+		public LinqJSEnumerable<TElement> DoAction(Action<TElement, int> action) { return null; }
 
 
-		public void ForEach(Action<TSource> action) {}
+		public void ForEach(Action<TElement> action) {}
 
-		public void ForEach(Func<TSource, bool> action) {}
+		public void ForEach(Func<TElement, bool> action) {}
 
-		public void ForEach(Action<TSource, int> action) {}
+		public void ForEach(Action<TElement, int> action) {}
 
-		public void ForEach(Func<TSource, int, bool> action) {}
+		public void ForEach(Func<TElement, int, bool> action) {}
 
 
 		public void Force() {}
@@ -449,29 +456,29 @@ namespace System.Linq {
 
 		#region Functional
 
-		public LinqJSEnumerable<TResult> LetBind<TResult>(Func<IEnumerable<TSource>, IEnumerable<TResult>> func) { return null; }
+		public LinqJSEnumerable<TResult> LetBind<TResult>(Func<IEnumerable<TElement>, IEnumerable<TResult>> func) { return null; }
 
-		public LinqJSEnumerable<TSource> Share() { return null; }
+		public LinqJSEnumerable<TElement> Share() { return null; }
 
-		public LinqJSEnumerable<TSource> Memoize() { return null; }
+		public LinqJSEnumerable<TElement> Memoize() { return null; }
 
 		#endregion
 
 		#region Error handling
 
-		public LinqJSEnumerable<TSource> CatchError(Action<Exception> action) { return null; }
+		public LinqJSEnumerable<TElement> CatchError(Action<Exception> action) { return null; }
 
-		public LinqJSEnumerable<TSource> FinallyAction(Action action) { return null; }
+		public LinqJSEnumerable<TElement> FinallyAction(Action action) { return null; }
 
 		#endregion
 
 		#region For debug
 
-		public LinqJSEnumerable<TSource> Trace() { return null; }
+		public LinqJSEnumerable<TElement> Trace() { return null; }
 
-		public LinqJSEnumerable<TSource> Trace(string message) { return null; }
+		public LinqJSEnumerable<TElement> Trace(string message) { return null; }
 
-		public LinqJSEnumerable<TSource> Trace(string message, Func<TSource, string> selector) { return null; }
+		public LinqJSEnumerable<TElement> Trace(string message, Func<TElement, string> selector) { return null; }
 
 		#endregion
 	}

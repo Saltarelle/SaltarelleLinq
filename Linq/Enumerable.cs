@@ -260,14 +260,23 @@ namespace System.Linq {
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).orderBy({keySelector})")]
 		public static OrderedLinqJSEnumerable<TSource> OrderBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) { return null; }
 
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).orderBy({keySelector}, {comparer})")]
+		public static OrderedLinqJSEnumerable<TSource> OrderBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer) { return null; }
+
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).orderByDescending()")]
 		public static OrderedLinqJSEnumerable<TSource> OrderByDescending<TSource>(this IEnumerable<TSource> source) { return null; }
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).orderByDescending({keySelector})")]
 		public static OrderedLinqJSEnumerable<TSource> OrderByDescending<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) { return null; }
 
+		[InlineCode("{$System.Linq.Enumerable}.from({source}).orderByDescending({keySelector}, {comparer})")]
+		public static OrderedLinqJSEnumerable<TSource> OrderByDescending<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IComparer<TKey> comparer) { return null; }
+
+
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).reverse()")]
 		public static LinqJSEnumerable<TSource> Reverse<TSource>(this IEnumerable<TSource> source) { return null; }
+
 
 		[InlineCode("{$System.Linq.Enumerable}.from({source}).shuffle()")]
 		public static LinqJSEnumerable<TSource> Shuffle<TSource>(this IEnumerable<TSource> source) { return null; }
