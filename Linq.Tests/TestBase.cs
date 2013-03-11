@@ -40,11 +40,11 @@ namespace Linq.Tests {
 @"<html>
 	<head>
 		<title>Test</title>
-		<link rel=""stylesheet"" href=""file://" + Path.GetFullPath("qunit-1.9.0.css").Replace("\\", "/") + @"""/>
+		<link rel=""stylesheet"" href=""file://" + Path.GetFullPath("qunit.css").Replace("\\", "/") + @"""/>
 	</head>
 	<body>
 		<script type=""text/javascript"" src=""file://" + Path.GetFullPath("mscorlib.js").Replace("\\", "/") + @"""></script>
-		<script type=""text/javascript"" src=""file://" + Path.GetFullPath("qunit-1.9.0.js").Replace("\\", "/") + @"""></script>
+		<script type=""text/javascript"" src=""file://" + Path.GetFullPath("qunit.js").Replace("\\", "/") + @"""></script>
 		<script type=""text/javascript"" src=""file://" + Path.GetFullPath("Linq.TestScript.js").Replace("\\", "/") + @"""></script>
 		<script type=""text/javascript"" src=""file://" + Path.GetFullPath("linq.js").Replace("\\", "/") + @"""></script>
 		<div id=""qunit""></div>

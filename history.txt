@@ -1,3 +1,5 @@
+Compatible with compiler 2.1.0
+
 2.0.1
 Added ordering overloads that use IComparers
 
