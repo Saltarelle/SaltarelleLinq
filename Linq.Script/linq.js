@@ -2827,9 +2827,11 @@
     // module export
     if (typeof define === Types.Function && define.amd) { // AMD
         define("linqjs", [], function () { return Enumerable; });
+        root.Enumerable = Enumerable;
     }
     else if (typeof module !== Types.Undefined && module.exports) { // Node
         module.exports = Enumerable;
+        global.Enumerable = Enumerable;
     }
     else {
         root.Enumerable = Enumerable;
