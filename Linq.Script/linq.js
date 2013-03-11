@@ -151,7 +151,7 @@
             }
         };
     };
-    ss.registerClass(null, '$IEnumerator', IEnumerator, null, ss.IDisposable);
+    ss.registerClass(null, '$IEnumerator', IEnumerator, null, [ss.IDisposable]);
 
     // for tryGetNext
     var Yielder = function () {
@@ -170,7 +170,7 @@
     var Enumerable = function (getEnumerator) {
         this.getEnumerator = getEnumerator;
     };
-    ss.registerClass(null, 'Enumerable', Enumerable, null, ss.IEnumerable);
+    ss.registerClass(null, 'Enumerable', Enumerable, null, [ss.IEnumerable]);
 
     // Utility
 
@@ -2814,7 +2814,7 @@
             return this.toEnumerable().getEnumerator();
         };
     };
-    ss.registerClass(null, '$Lookup', Lookup, null, ss.IEnumerable);
+    ss.registerClass(null, '$Lookup', Lookup, null, [ss.IEnumerable]);
 
     var Grouping = function (groupKey, elements) {
         this.key = function () {
@@ -2827,9 +2827,11 @@
     // module export
     if (typeof define === Types.Function && define.amd) { // AMD
         define("linqjs", [], function () { return Enumerable; });
+        root.Enumerable = Enumerable;
     }
     else if (typeof module !== Types.Undefined && module.exports) { // Node
         module.exports = Enumerable;
+        global.Enumerable = Enumerable;
     }
     else {
         root.Enumerable = Enumerable;
