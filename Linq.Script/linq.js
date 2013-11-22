@@ -2086,11 +2086,11 @@
             return new IEnumerator(
                 function () { sourceEnumerator = source.getEnumerator(); },
                 function () {
-                    while (sourceEnumerator.moveNext()) {
-                        if (q.length == count) q.shift();
-                        q.push(sourceEnumerator.current());
-                    }
                     if (enumerator == null) {
+                        while (sourceEnumerator.moveNext()) {
+                            if (q.length == count) q.shift();
+                            q.push(sourceEnumerator.current());
+                        }
                         enumerator = Enumerable.from(q).getEnumerator();
                     }
                     return (enumerator.moveNext())
