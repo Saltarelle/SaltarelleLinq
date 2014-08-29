@@ -191,15 +191,15 @@ namespace Linq.TestScript {
 			Assert.AreEqual(i, 0, "x should be 0");
 		}
 
-        [Test]
-        public void EnumerableCanBeEvaluatedInMultipleContexts()
-        {
-            // Refers to https://github.com/erik-kallen/SaltarelleLinq/issues/4
+		[Test]
+		public void EnumerableCanBeEvaluatedInMultipleContexts()
+		{
+			// Refers to https://github.com/erik-kallen/SaltarelleLinq/issues/4
 
-            var actual = Enumerable.From(new int[] { 1, 2, 3 });
+			var actual = Enumerable.From(new int[] { 1, 2, 3 });
 
-            Assert.IsTrue(actual.SequenceEqual(actual), "Enumerable should be sequenceEqual to itself");
-            Assert.IsTrue(actual.SelectMany(x => actual).SequenceEqual(new int[] { 1, 2, 3, 1, 2, 3, 1, 2, 3 }), "SelectMany result should match");
-        }
+			Assert.IsTrue(actual.SequenceEqual(actual), "Enumerable should be sequenceEqual to itself");
+			Assert.IsTrue(actual.SelectMany(x => actual).SequenceEqual(new int[] { 1, 2, 3, 1, 2, 3, 1, 2, 3 }), "SelectMany result should match");
+		}
 	}
 }
