@@ -1,0 +1,18 @@
+1.12.1
+Work with compiler 2.5.0
+
+1.12.0
+Upgraded to QUnit 1.12.0
+Work with compiler 2.3.0
+Added some Assert.Throws overloads.
+Added methods Assert.IsNull, Assert.IsNotNull and Assert.IsNullOrUndefined.
+
+1.9.2
+Work with compiler 2.2.0
+
+1.9.1
+Work with compiler 2.1.0
+Generate QUnit.module() instead of module() for Node.js compatibility
+
+1.9.0
+Initial version. Contains a wrapper for the QUnit API and compiler extensions to convert [Test] methods to test() calls. QUnit 1.9.0

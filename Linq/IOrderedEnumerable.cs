@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 namespace System.Linq {
 	[Imported]
 	public interface IOrderedEnumerable<out TElement> : IEnumerable<TElement> {
-		IOrderedEnumerable<TElement> ThenBy<TKey>(Func<TElement, TKey> keySelector);
-		IOrderedEnumerable<TElement> ThenBy<TKey>(Func<TElement, TKey> keySelector, IComparer<TKey> comparer);
-		IOrderedEnumerable<TElement> ThenByDescending<TKey>(Func<TElement, TKey> keySelector);
-		IOrderedEnumerable<TElement> ThenByDescending<TKey>(Func<TElement, TKey> keySelector, IComparer<TKey> comparer);
+		[OmitUnspecifiedArgumentsFrom(1)]
+		IOrderedEnumerable<TElement> ThenBy<TKey>(Func<TElement, TKey> keySelector, IComparer<TKey> comparer = null);
+		[OmitUnspecifiedArgumentsFrom(1)]
+		IOrderedEnumerable<TElement> ThenByDescending<TKey>(Func<TElement, TKey> keySelector, IComparer<TKey> comparer = null);
 	}
 }
