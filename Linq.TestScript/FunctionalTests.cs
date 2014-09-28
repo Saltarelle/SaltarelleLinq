@@ -7,8 +7,7 @@ using System.Text.RegularExpressions;
 namespace Linq.TestScript {
 	[TestFixture]
 	public class FunctionalTests {
-//		This test fails due to what seems like a bug in linq.js
-//		[Test]
+		[Test]
 		public void LetBindWorksForArray() {
 			Assert.AreEqual(new[] { 1, 2, 3, 4, 5 }.LetBind(a => a.Zip(a.Skip(1), (x, y) => x + ":" + y)).ToArray(), new[] { "1:2", "2:3", "3:4", "4:5" });
 		}

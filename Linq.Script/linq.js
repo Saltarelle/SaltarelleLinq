@@ -297,8 +297,8 @@
         }
         var ienum = ss.safeCast(obj, ss.IEnumerable);
         if (ienum) {
-            var enumerator;
             return new Enumerable(function () {
+                var enumerator;
                 return new IEnumerator(
                     function () { enumerator = ss.getEnumerator(ienum); },
                     function () {
